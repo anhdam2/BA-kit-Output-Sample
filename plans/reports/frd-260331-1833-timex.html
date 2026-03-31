@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>frd-260331-1833-timex</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #0f766e;
+      --code-bg: #f3f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 980px;
+      margin: 32px auto;
+      padding: 40px 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06);
+    }
+    header {
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    h1, h2, h3, h4 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    a { color: var(--accent); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f9fafb; }
+    code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    blockquote {
+      margin: 20px 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--accent);
+      background: #f0fdfa;
+    }
+    img {
+      display: block;
+      max-width: min(100%, 720px);
+      width: auto;
+      height: auto;
+      margin: 24px auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      background: #fff;
+    }
+    .mermaid {
+      margin: 24px 0;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      overflow-x: auto;
+    }
+    ul, ol { padding-left: 24px; }
+  </style>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "neutral",
+      securityLevel: "loose",
+      flowchart: { useMaxWidth: true, htmlLabels: true }
+    });
+  </script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>frd-260331-1833-timex</h1>
+      <p>Tài liệu BA xuất từ Markdown</p>
+    </header>
+    <h1 id="functional-requirements-document">Functional Requirements Document</h1>
+<h2 id="1-metadata">1. Metadata</h2>
+<ul>
+<li>Project: TimeX</li>
+<li>Slug: <code>timex</code></li>
+<li>Date set: <code>260331-1833</code></li>
+<li>Source backbone: <code>plans/reports/backbone-260331-1833-timex.md</code></li>
+<li>Mode: <code>hybrid</code></li>
+<li>Platform: Web app POC</li>
+<li>Ngôn ngữ: Tiếng Việt</li>
+</ul>
+<h2 id="2-functional-overview">2. Functional Overview</h2>
+<p>TimeX là web app POC hỗ trợ nhân viên kho tạo phương án xếp hộp vào pallet bằng cách kết hợp catalog box chuẩn, auto-packing algorithm, và mô hình 3D để quan sát và chỉnh sửa kết quả. Mục tiêu của hệ thống là cung cấp một luồng thao tác ngắn, dễ hiểu, giảm thử-sai thủ công và tăng khả năng sử dụng không gian pallet.</p>
+<p>Luồng chính của sản phẩm đi theo hướng:</p>
+<ol>
+<li>Chọn pallet context theo vị trí.</li>
+<li>Chọn box từ catalog chuẩn theo <code>Carton Code</code>.</li>
+<li>Nhập số lượng theo từng loại box.</li>
+<li>Chạy auto-packing để sinh layout gợi ý.</li>
+<li>Xem layout trên 3D workspace.</li>
+<li>Chỉnh tay bằng kéo thả, xoay box nếu cần.</li>
+<li>Đánh giá kết quả qua utilization, layer count, và trạng thái hợp lệ.</li>
+</ol>
+<h2 id="3-user-personas">3. User Personas</h2>
+<h3 id="persona-1-nhan-vien-kho">Persona 1. Nhân viên kho</h3>
+<ul>
+<li>Vai trò: người dùng chính</li>
+<li>Mục tiêu: tạo nhanh phương án xếp khả thi và dễ hình dung</li>
+<li>Pain point hiện tại:</li>
+<li>khó ước lượng không gian pallet bằng mắt</li>
+<li>mất thời gian thử nhiều phương án</li>
+<li>khó phát hiện sớm phương án không hợp lệ</li>
+</ul>
+<h3 id="persona-2-lead-kho-van-hanh">Persona 2. Lead kho / vận hành</h3>
+<ul>
+<li>Vai trò: người xem xét nghiệp vụ</li>
+<li>Mục tiêu: đánh giá POC có giúp thao tác nhất quán và giảm sai sót hay không</li>
+<li>Nhu cầu: thấy rõ logic đề xuất, metric kết quả, và mức dễ dùng của giao diện</li>
+</ul>
+<h2 id="4-feature-list-with-moscow-priorities">4. Feature List With MoSCoW Priorities</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Feature</th>
+<th>Priority</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FEAT-01</td>
+<td>Chọn vị trí pallet</td>
+<td>Must</td>
+<td>Người dùng chọn context pallet để hệ thống nạp đúng giới hạn</td>
+</tr>
+<tr>
+<td>FEAT-02</td>
+<td>Nạp cấu hình pallet cố định</td>
+<td>Must</td>
+<td>Hệ thống tự nạp kích thước và chiều cao tối đa theo vị trí</td>
+</tr>
+<tr>
+<td>FEAT-03</td>
+<td>Catalog box chuẩn theo <code>Carton Code</code></td>
+<td>Must</td>
+<td>Hiển thị và dùng danh mục box cố định làm nguồn dữ liệu chính</td>
+</tr>
+<tr>
+<td>FEAT-04</td>
+<td>Nhập số lượng box theo loại</td>
+<td>Must</td>
+<td>Cho phép nhập số lượng cho một hoặc nhiều loại box</td>
+</tr>
+<tr>
+<td>FEAT-05</td>
+<td>Validate input</td>
+<td>Must</td>
+<td>Chặn dữ liệu thiếu, sai định dạng, hoặc không hợp lệ</td>
+</tr>
+<tr>
+<td>FEAT-06</td>
+<td>Auto-packing</td>
+<td>Must</td>
+<td>Sinh một phương án xếp khởi tạo ưu tiên utilization</td>
+</tr>
+<tr>
+<td>FEAT-07</td>
+<td>3D visualization</td>
+<td>Must</td>
+<td>Hiển thị layout xếp bằng mô hình 3D</td>
+</tr>
+<tr>
+<td>FEAT-08</td>
+<td>Zoom / rotate / select</td>
+<td>Must</td>
+<td>Cho phép người dùng quan sát layout từ nhiều góc nhìn</td>
+</tr>
+<tr>
+<td>FEAT-09</td>
+<td>Manual drag-and-drop</td>
+<td>Should</td>
+<td>Cho phép kéo thả box trong workspace</td>
+</tr>
+<tr>
+<td>FEAT-10</td>
+<td>Manual rotate</td>
+<td>Should</td>
+<td>Cho phép xoay box khi cần điều chỉnh</td>
+</tr>
+<tr>
+<td>FEAT-11</td>
+<td>Recalculate validation metrics</td>
+<td>Should</td>
+<td>Cập nhật metric và trạng thái sau chỉnh tay</td>
+</tr>
+<tr>
+<td>FEAT-12</td>
+<td>Reset về phương án auto-pack</td>
+<td>Could</td>
+<td>Hoàn nguyên về layout gợi ý ban đầu</td>
+</tr>
+<tr>
+<td>FEAT-13</td>
+<td>Nhập box ngoài catalog</td>
+<td>Won't</td>
+<td>Không cam kết trong scope POC hiện tại</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-workflows">5. Workflows</h2>
+<h3 id="51-luong-chinh-tao-phuong-an-xep">5.1 Luồng chính tạo phương án xếp</h3>
+<div class="mermaid">
+flowchart TD
+    A[Chọn vị trí pallet] --> B[Hệ thống nạp cấu hình pallet]
+    B --> C[Chọn Carton Code từ catalog]
+    C --> D[Nhập số lượng từng loại box]
+    D --> E[Validate input]
+    E -->|Hợp lệ| F[Chạy auto-packing]
+    E -->|Không hợp lệ| D
+    F --> G[Hiển thị layout 3D]
+    G --> H[Xem utilization và layer count]
+    H --> I{Cần chỉnh tay?}
+    I -->|Có| J[Kéo thả hoặc xoay box]
+    J --> K[Cập nhật trạng thái và metric]
+    K --> L[Chốt phương án]
+    I -->|Không| L
+</div>
+<h3 id="52-luong-chinh-tay-layout">5.2 Luồng chỉnh tay layout</h3>
+<div class="mermaid">
+flowchart TD
+    A[Người dùng chọn box trong 3D workspace] --> B[Thực hiện kéo thả hoặc xoay]
+    B --> C[Hệ thống kiểm tra layout mới]
+    C -->|Hợp lệ| D[Cập nhật 3D layout]
+    C -->|Không hợp lệ| E[Hiển thị cảnh báo hoặc trạng thái lỗi]
+    D --> F[Cập nhật utilization và layer count]
+    E --> F
+</div>
+<h2 id="6-data-requirements">6. Data Requirements</h2>
+<h3 id="61-pallet-position">6.1 Pallet Position</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>position_code</td>
+<td>String</td>
+<td>Mã vị trí pallet</td>
+</tr>
+<tr>
+<td>position_name</td>
+<td>String</td>
+<td>Tên hiển thị vị trí</td>
+</tr>
+<tr>
+<td>max_height_cm</td>
+<td>Number</td>
+<td>Chiều cao tối đa theo vị trí</td>
+</tr>
+<tr>
+<td>pallet_length_cm</td>
+<td>Number</td>
+<td>Chiều dài pallet</td>
+</tr>
+<tr>
+<td>pallet_width_cm</td>
+<td>Number</td>
+<td>Chiều rộng pallet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-box-catalog">6.2 Box Catalog</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carton_code</td>
+<td>String</td>
+<td>Mã carton duy nhất</td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>Tên mô tả box</td>
+</tr>
+<tr>
+<td>length_cm</td>
+<td>Number</td>
+<td>Chiều dài chuẩn</td>
+</tr>
+<tr>
+<td>width_cm</td>
+<td>Number</td>
+<td>Chiều rộng chuẩn</td>
+</tr>
+<tr>
+<td>height_cm</td>
+<td>Number</td>
+<td>Chiều cao chuẩn</td>
+</tr>
+<tr>
+<td>volume_weight_kg</td>
+<td>Number</td>
+<td>Dữ liệu tham chiếu logistics</td>
+</tr>
+<tr>
+<td>annual_volume</td>
+<td>Number</td>
+<td>Dữ liệu tham chiếu nghiệp vụ</td>
+</tr>
+<tr>
+<td>annual_volume_weight_kg</td>
+<td>Number</td>
+<td>Dữ liệu tham chiếu nghiệp vụ</td>
+</tr>
+<tr>
+<td>freight_cost_usd</td>
+<td>Number</td>
+<td>Dữ liệu tham chiếu nghiệp vụ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-packing-request">6.3 Packing Request</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pallet_position</td>
+<td>String</td>
+<td>Vị trí pallet được chọn</td>
+</tr>
+<tr>
+<td>box_items</td>
+<td>Array</td>
+<td>Danh sách loại box và số lượng</td>
+</tr>
+<tr>
+<td>selected_metric_goal</td>
+<td>String</td>
+<td>Objective hiện hành, mặc định là utilization</td>
+</tr>
+</tbody>
+</table>
+<h3 id="64-packing-result">6.4 Packing Result</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Mô tả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>layout_id</td>
+<td>String</td>
+<td>Mã layout kết quả</td>
+</tr>
+<tr>
+<td>boxes</td>
+<td>Array</td>
+<td>Danh sách box với tọa độ, orientation, layer</td>
+</tr>
+<tr>
+<td>utilization_percent</td>
+<td>Number</td>
+<td>Tỷ lệ sử dụng thể tích pallet</td>
+</tr>
+<tr>
+<td>layer_count</td>
+<td>Number</td>
+<td>Số layer trong layout</td>
+</tr>
+<tr>
+<td>validation_state</td>
+<td>String</td>
+<td>Trạng thái hợp lệ hoặc không hợp lệ</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-business-rules">7. Business Rules</h2>
+<ul>
+<li>BR-01: Người dùng phải chọn một vị trí pallet trước khi chạy auto-packing.</li>
+<li>BR-02: Hệ thống phải sử dụng kích thước pallet và giới hạn chiều cao tương ứng với vị trí đã chọn.</li>
+<li>BR-03: Khi chọn box từ catalog chuẩn, kích thước phải lấy từ master data theo <code>Carton Code</code>.</li>
+<li>BR-04: Dữ liệu số lượng box phải hợp lệ trước khi chạy thuật toán.</li>
+<li>BR-05: Layout xếp không được vượt quá giới hạn chiều dài, chiều rộng, hoặc chiều cao pallet.</li>
+<li>BR-06: <code>Utilization</code> là mục tiêu đánh giá chính cho phương án auto-pack trong POC.</li>
+<li>BR-07: Sau khi người dùng chỉnh tay layout, hệ thống phải cập nhật lại trạng thái hợp lệ và metric.</li>
+<li>BR-08: <code>Volume weight</code>, <code>annual volume</code>, và <code>freight cost</code> hiện là dữ liệu tham chiếu, không phải objective tối ưu bắt buộc của POC.</li>
+</ul>
+<h2 id="8-integration-points">8. Integration Points</h2>
+<h3 id="tich-hop-trong-pham-vi-poc">Tích hợp trong phạm vi POC</h3>
+<ul>
+<li>Frontend web app với module auto-packing nội bộ.</li>
+<li>Frontend web app với module 3D visualization nội bộ.</li>
+</ul>
+<h3 id="khong-tich-hop-trong-pham-vi-poc">Không tích hợp trong phạm vi POC</h3>
+<ul>
+<li>WMS</li>
+<li>ERP</li>
+<li>Thiết bị kho hiện trường</li>
+<li>Dịch vụ tối ưu logistics bên thứ ba</li>
+</ul>
+<h3 id="integration-notes">Integration notes</h3>
+<ul>
+<li>FRD giả định module auto-packing được gọi trong cùng solution boundary, không cần tích hợp hệ thống ngoài.</li>
+<li>Catalog box có thể được seed từ static dataset hoặc nguồn quản trị nội bộ tối giản.</li>
+</ul>
+<h2 id="9-acceptance-criteria-by-feature">9. Acceptance Criteria By Feature</h2>
+<table>
+<thead>
+<tr>
+<th>Feature ID</th>
+<th>Acceptance criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FEAT-01, FEAT-02</td>
+<td>Người dùng chọn vị trí pallet và hệ thống hiển thị đúng cấu hình pallet áp dụng.</td>
+</tr>
+<tr>
+<td>FEAT-03, FEAT-04</td>
+<td>Người dùng chọn được một hoặc nhiều <code>Carton Code</code> và nhập được số lượng tương ứng.</td>
+</tr>
+<tr>
+<td>FEAT-05</td>
+<td>Input không hợp lệ bị chặn và có phản hồi rõ ràng trước khi chạy thuật toán.</td>
+</tr>
+<tr>
+<td>FEAT-06</td>
+<td>Hệ thống sinh được ít nhất một layout khả thi trong phạm vi dữ liệu POC.</td>
+</tr>
+<tr>
+<td>FEAT-07, FEAT-08</td>
+<td>Layout được hiển thị trong 3D workspace và người dùng có thể zoom, rotate, chọn box.</td>
+</tr>
+<tr>
+<td>FEAT-09, FEAT-10</td>
+<td>Người dùng có thể kéo thả hoặc xoay box ở mức POC trên layout đã sinh.</td>
+</tr>
+<tr>
+<td>FEAT-11</td>
+<td>Sau chỉnh tay, utilization, layer count, và validation state được cập nhật lại.</td>
+</tr>
+<tr>
+<td>FEAT-12</td>
+<td>Nếu được triển khai, người dùng có thể quay về layout auto-pack ban đầu mà không cần nhập lại dữ liệu.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-non-functional-notes">10. Non-functional Notes</h2>
+<ul>
+<li>POC ưu tiên sự rõ ràng của luồng thao tác hơn là độ phức tạp thuật toán.</li>
+<li>Giao diện phải tối giản, dễ hiểu cho nhân viên kho.</li>
+<li>3D workspace phải đủ mượt để phục vụ kiểm tra trực quan, không cần mức fidelity cao như CAD.</li>
+</ul>
+<h2 id="11-dependencies-and-risks">11. Dependencies And Risks</h2>
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+<li>Danh sách vị trí pallet hỗ trợ trong UI phải được chốt.</li>
+<li>Catalog box chuẩn phải được seed chính xác.</li>
+<li>Thuật toán packing và 3D visualization phải dùng cùng một cấu trúc dữ liệu layout.</li>
+</ul>
+<h3 id="risks">Risks</h3>
+<ul>
+<li>Chưa có KPI định lượng nên khó đánh giá mức thành công tuyệt đối của POC.</li>
+<li>Nếu manual adjustment quá tự do, validation logic có thể phức tạp hơn dự kiến.</li>
+<li>Nếu cần hỗ trợ box ngoài catalog sớm, scope input và validation sẽ tăng đáng kể.</li>
+</ul>
+<h2 id="12-recommended-next-documents">12. Recommended Next Documents</h2>
+<ul>
+<li><code>user stories</code>: chuyển feature map thành epic/story và acceptance criteria kiểu Given/When/Then.</li>
+<li><code>srs</code>: đặc tả chọn lọc cho use case, screen contract lite, validation rules, và trạng thái của 3D workspace.</li>
+</ul>
+  </main>
+</body>
+</html>

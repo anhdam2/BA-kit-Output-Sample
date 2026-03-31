@@ -1,0 +1,2238 @@
+{
+  "version": "2.9",
+  "children": [
+    {
+      "id": "SCR-01-input-config",
+      "name": "SCR-01 Input cấu hình pallet và box",
+      "type": "frame",
+      "x": 40,
+      "y": 40,
+      "width": 1440,
+      "height": 960,
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 32,
+      "fill": "#F8FAFC",
+      "stroke": {
+        "thickness": 1,
+        "fill": "#CBD5E1"
+      },
+      "cornerRadius": 24,
+      "children": [
+        {
+          "id": "scr01-header",
+          "type": "frame",
+          "width": "fill_container",
+          "height": "fit_content",
+          "layout": "horizontal",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "scr01-title-stack",
+              "type": "frame",
+              "layout": "vertical",
+              "gap": 8,
+              "width": "fill_container",
+              "children": [
+                {
+                  "id": "scr01-title",
+                  "type": "text",
+                  "content": "SCR-01 Input cấu hình pallet và box",
+                  "fontSize": 32,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr01-desc",
+                  "type": "text",
+                  "content": "Chọn pallet context, chọn box catalog theo Carton Code, nhập số lượng và chạy auto-packing.",
+                  "textGrowth": "fixed-width",
+                  "width": 760,
+                  "fontSize": 16,
+                  "lineHeight": 1.4,
+                  "fill": "#475569"
+                }
+              ]
+            },
+            {
+              "id": "scr01-state-badge",
+              "type": "frame",
+              "layout": "horizontal",
+              "padding": [10, 16],
+              "fill": "#E2E8F0",
+              "cornerRadius": 999,
+              "children": [
+                {
+                  "id": "scr01-state-text",
+                  "type": "text",
+                  "content": "State: editing-valid",
+                  "fontSize": 14,
+                  "fontWeight": "600",
+                  "fill": "#334155"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scr01-body",
+          "type": "frame",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "horizontal",
+          "gap": 24,
+          "children": [
+            {
+              "id": "scr01-left-panel",
+              "type": "frame",
+              "width": 430,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 20,
+              "children": [
+                {
+                  "id": "scr01-pallet-label",
+                  "type": "text",
+                  "content": "Pallet Context",
+                  "fontSize": 20,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr01-pallet-select",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 64,
+                  "layout": "horizontal",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "padding": [0, 16],
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#CBD5E1"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr01-pallet-select-label",
+                      "type": "text",
+                      "content": "Pallet Position: POS-A1 / Deck 1",
+                      "fontSize": 16,
+                      "fontWeight": "500",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr01-pallet-select-meta",
+                      "type": "text",
+                      "content": "Select",
+                      "fontSize": 14,
+                      "fill": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-pallet-cards",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": "fit_content",
+                  "layout": "horizontal",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "id": "scr01-card-length",
+                      "type": "frame",
+                      "width": "fill_container",
+                      "height": 92,
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": 12,
+                      "fill": "#F8FAFC",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#CBD5E1"
+                      },
+                      "cornerRadius": 16,
+                      "children": [
+                        {
+                          "id": "scr01-card-length-label",
+                          "type": "text",
+                          "content": "Length",
+                          "fontSize": 13,
+                          "fill": "#64748B"
+                        },
+                        {
+                          "id": "scr01-card-length-value",
+                          "type": "text",
+                          "content": "120 cm",
+                          "fontSize": 24,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-card-width",
+                      "type": "frame",
+                      "width": "fill_container",
+                      "height": 92,
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": 12,
+                      "fill": "#F8FAFC",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#CBD5E1"
+                      },
+                      "cornerRadius": 16,
+                      "children": [
+                        {
+                          "id": "scr01-card-width-label",
+                          "type": "text",
+                          "content": "Width",
+                          "fontSize": 13,
+                          "fill": "#64748B"
+                        },
+                        {
+                          "id": "scr01-card-width-value",
+                          "type": "text",
+                          "content": "100 cm",
+                          "fontSize": 24,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-card-height",
+                      "type": "frame",
+                      "width": "fill_container",
+                      "height": 92,
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": 12,
+                      "fill": "#F8FAFC",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#CBD5E1"
+                      },
+                      "cornerRadius": 16,
+                      "children": [
+                        {
+                          "id": "scr01-card-height-label",
+                          "type": "text",
+                          "content": "Max Height",
+                          "fontSize": 13,
+                          "fill": "#64748B"
+                        },
+                        {
+                          "id": "scr01-card-height-value",
+                          "type": "text",
+                          "content": "150 cm",
+                          "fontSize": 24,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-selected-title",
+                  "type": "text",
+                  "content": "Selected Box Items",
+                  "fontSize": 20,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr01-table-header",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 40,
+                  "layout": "horizontal",
+                  "gap": 8,
+                  "padding": [0, 8],
+                  "children": [
+                    {
+                      "id": "scr01-head-code",
+                      "type": "frame",
+                      "width": 98,
+                      "height": "fill_container",
+                      "layout": "horizontal",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "scr01-head-code-text",
+                          "type": "text",
+                          "content": "Code",
+                          "fontSize": 13,
+                          "fontWeight": "600",
+                          "fill": "#475569"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-head-size",
+                      "type": "frame",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "layout": "horizontal",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "scr01-head-size-text",
+                          "type": "text",
+                          "content": "Standard Size",
+                          "fontSize": 13,
+                          "fontWeight": "600",
+                          "fill": "#475569"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-head-qty",
+                      "type": "frame",
+                      "width": 72,
+                      "height": "fill_container",
+                      "layout": "horizontal",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "scr01-head-qty-text",
+                          "type": "text",
+                          "content": "Qty",
+                          "fontSize": 13,
+                          "fontWeight": "600",
+                          "fill": "#475569"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-head-action",
+                      "type": "frame",
+                      "width": 60,
+                      "height": "fill_container",
+                      "layout": "horizontal",
+                      "alignItems": "center",
+                      "justifyContent": "end",
+                      "children": [
+                        {
+                          "id": "scr01-head-action-text",
+                          "type": "text",
+                          "content": "Action",
+                          "fontSize": 13,
+                          "fontWeight": "600",
+                          "fill": "#475569"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-row-1",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 64,
+                  "layout": "horizontal",
+                  "gap": 8,
+                  "padding": [0, 8],
+                  "alignItems": "center",
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr01-row-1-code",
+                      "type": "text",
+                      "content": "BX-001",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr01-row-1-size",
+                      "type": "text",
+                      "content": "40 x 30 x 20 cm",
+                      "fontSize": 14,
+                      "fill": "#334155"
+                    },
+                    {
+                      "id": "scr01-row-1-spacer",
+                      "type": "frame",
+                      "width": "fill_container",
+                      "height": 1,
+                      "fill": "#F8FAFC"
+                    },
+                    {
+                      "id": "scr01-row-1-qty",
+                      "type": "frame",
+                      "width": 72,
+                      "height": 40,
+                      "layout": "horizontal",
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                      "fill": "#FFFFFF",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#CBD5E1"
+                      },
+                      "cornerRadius": 12,
+                      "children": [
+                        {
+                          "id": "scr01-row-1-qty-text",
+                          "type": "text",
+                          "content": "12",
+                          "fontSize": 15,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-row-1-remove",
+                      "type": "text",
+                      "content": "Remove",
+                      "fontSize": 14,
+                      "fill": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-row-2",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 64,
+                  "layout": "horizontal",
+                  "gap": 8,
+                  "padding": [0, 8],
+                  "alignItems": "center",
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr01-row-2-code",
+                      "type": "text",
+                      "content": "BX-002",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr01-row-2-size",
+                      "type": "text",
+                      "content": "55 x 35 x 25 cm",
+                      "fontSize": 14,
+                      "fill": "#334155"
+                    },
+                    {
+                      "id": "scr01-row-2-spacer",
+                      "type": "frame",
+                      "width": "fill_container",
+                      "height": 1,
+                      "fill": "#F8FAFC"
+                    },
+                    {
+                      "id": "scr01-row-2-qty",
+                      "type": "frame",
+                      "width": 72,
+                      "height": 40,
+                      "layout": "horizontal",
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                      "fill": "#FFFFFF",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#CBD5E1"
+                      },
+                      "cornerRadius": 12,
+                      "children": [
+                        {
+                          "id": "scr01-row-2-qty-text",
+                          "type": "text",
+                          "content": "8",
+                          "fontSize": 15,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-row-2-remove",
+                      "type": "text",
+                      "content": "Remove",
+                      "fontSize": 14,
+                      "fill": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-row-3",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 64,
+                  "layout": "horizontal",
+                  "gap": 8,
+                  "padding": [0, 8],
+                  "alignItems": "center",
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr01-row-3-code",
+                      "type": "text",
+                      "content": "BX-003",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr01-row-3-size",
+                      "type": "text",
+                      "content": "60 x 40 x 30 cm",
+                      "fontSize": 14,
+                      "fill": "#334155"
+                    },
+                    {
+                      "id": "scr01-row-3-spacer",
+                      "type": "frame",
+                      "width": "fill_container",
+                      "height": 1,
+                      "fill": "#F8FAFC"
+                    },
+                    {
+                      "id": "scr01-row-3-qty",
+                      "type": "frame",
+                      "width": 72,
+                      "height": 40,
+                      "layout": "horizontal",
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                      "fill": "#FFFFFF",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#CBD5E1"
+                      },
+                      "cornerRadius": 12,
+                      "children": [
+                        {
+                          "id": "scr01-row-3-qty-text",
+                          "type": "text",
+                          "content": "6",
+                          "fontSize": 15,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-row-3-remove",
+                      "type": "text",
+                      "content": "Remove",
+                      "fontSize": 14,
+                      "fill": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-validation-banner",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 78,
+                  "layout": "vertical",
+                  "gap": 6,
+                  "padding": 14,
+                  "fill": "#FEF2F2",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#FCA5A5"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr01-validation-title",
+                      "type": "text",
+                      "content": "Validation Preview",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#991B1B"
+                    },
+                    {
+                      "id": "scr01-validation-text",
+                      "type": "text",
+                      "content": "Nếu thiếu pallet position hoặc quantity không hợp lệ, banner lỗi và line-level error phải xuất hiện tại đây.",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "fontSize": 13,
+                      "lineHeight": 1.4,
+                      "fill": "#7F1D1D"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-run-button",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 56,
+                  "layout": "horizontal",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "fill": "#0F172A",
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr01-run-button-text",
+                      "type": "text",
+                      "content": "Run Auto-packing",
+                      "fontSize": 16,
+                      "fontWeight": "600",
+                      "fill": "#F8FAFC"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "scr01-right-panel",
+              "type": "frame",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 20,
+              "children": [
+                {
+                  "id": "scr01-catalog-title",
+                  "type": "text",
+                  "content": "Box Catalog Master",
+                  "fontSize": 20,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr01-search",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 58,
+                  "layout": "horizontal",
+                  "alignItems": "center",
+                  "padding": [0, 16],
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#CBD5E1"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr01-search-text",
+                      "type": "text",
+                      "content": "Search Carton Code or description",
+                      "fontSize": 15,
+                      "fill": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-catalog-header",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 44,
+                  "layout": "horizontal",
+                  "gap": 16,
+                  "padding": [0, 12],
+                  "children": [
+                    {
+                      "id": "scr01-catalog-head-code",
+                      "type": "text",
+                      "content": "Carton Code",
+                      "fontSize": 13,
+                      "fontWeight": "600",
+                      "fill": "#475569"
+                    },
+                    {
+                      "id": "scr01-catalog-head-dims",
+                      "type": "text",
+                      "content": "Dimensions",
+                      "fontSize": 13,
+                      "fontWeight": "600",
+                      "fill": "#475569"
+                    },
+                    {
+                      "id": "scr01-catalog-head-vw",
+                      "type": "text",
+                      "content": "Volume Weight",
+                      "fontSize": 13,
+                      "fontWeight": "600",
+                      "fill": "#475569"
+                    },
+                    {
+                      "id": "scr01-catalog-head-annual",
+                      "type": "text",
+                      "content": "Annual Volume",
+                      "fontSize": 13,
+                      "fontWeight": "600",
+                      "fill": "#475569"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-catalog-row-1",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 72,
+                  "layout": "horizontal",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "padding": [0, 16],
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr01-catalog-row-1-left",
+                      "type": "frame",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-1-code",
+                          "type": "text",
+                          "content": "BX-001",
+                          "fontSize": 15,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        },
+                        {
+                          "id": "scr01-catalog-row-1-meta",
+                          "type": "text",
+                          "content": "40 x 30 x 20 cm | 4.5 kg | 1,250",
+                          "fontSize": 14,
+                          "fill": "#475569"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-catalog-row-1-add",
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "padding": [10, 14],
+                      "fill": "#E2E8F0",
+                      "cornerRadius": 12,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-1-add-text",
+                          "type": "text",
+                          "content": "Add",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "fill": "#334155"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-catalog-row-2",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 72,
+                  "layout": "horizontal",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "padding": [0, 16],
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr01-catalog-row-2-left",
+                      "type": "frame",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-2-code",
+                          "type": "text",
+                          "content": "BX-002",
+                          "fontSize": 15,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        },
+                        {
+                          "id": "scr01-catalog-row-2-meta",
+                          "type": "text",
+                          "content": "55 x 35 x 25 cm | 6.1 kg | 920",
+                          "fontSize": 14,
+                          "fill": "#475569"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-catalog-row-2-add",
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "padding": [10, 14],
+                      "fill": "#E2E8F0",
+                      "cornerRadius": 12,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-2-add-text",
+                          "type": "text",
+                          "content": "Add",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "fill": "#334155"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-catalog-row-3",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 72,
+                  "layout": "horizontal",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "padding": [0, 16],
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr01-catalog-row-3-left",
+                      "type": "frame",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-3-code",
+                          "type": "text",
+                          "content": "BX-003",
+                          "fontSize": 15,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        },
+                        {
+                          "id": "scr01-catalog-row-3-meta",
+                          "type": "text",
+                          "content": "60 x 40 x 30 cm | 8.0 kg | 640",
+                          "fontSize": 14,
+                          "fill": "#475569"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-catalog-row-3-add",
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "padding": [10, 14],
+                      "fill": "#E2E8F0",
+                      "cornerRadius": 12,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-3-add-text",
+                          "type": "text",
+                          "content": "Add",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "fill": "#334155"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-catalog-row-4",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 72,
+                  "layout": "horizontal",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "padding": [0, 16],
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr01-catalog-row-4-left",
+                      "type": "frame",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-4-code",
+                          "type": "text",
+                          "content": "BX-004",
+                          "fontSize": 15,
+                          "fontWeight": "600",
+                          "fill": "#0F172A"
+                        },
+                        {
+                          "id": "scr01-catalog-row-4-meta",
+                          "type": "text",
+                          "content": "48 x 40 x 24 cm | 5.4 kg | 730",
+                          "fontSize": 14,
+                          "fill": "#475569"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "scr01-catalog-row-4-add",
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "padding": [10, 14],
+                      "fill": "#E2E8F0",
+                      "cornerRadius": 12,
+                      "children": [
+                        {
+                          "id": "scr01-catalog-row-4-add-text",
+                          "type": "text",
+                          "content": "Add",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "fill": "#334155"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "scr01-note-card",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 108,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "fill": "#F1F5F9",
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr01-note-title",
+                      "type": "text",
+                      "content": "Catalog-first POC notes",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#334155"
+                    },
+                    {
+                      "id": "scr01-note-text",
+                      "type": "text",
+                      "content": "Wireframe này phải làm rõ ba vùng: pallet context, selected box items, và box catalog master. Người dùng không nhập kích thước box bằng tay trong luồng chính.",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "fontSize": 14,
+                      "lineHeight": 1.4,
+                      "fill": "#475569"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR-01-input-invalid",
+      "name": "SCR-01 Validation error state",
+      "type": "frame",
+      "x": 1530,
+      "y": 40,
+      "width": 720,
+      "height": 540,
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 28,
+      "fill": "#FFF7ED",
+      "stroke": {
+        "thickness": 1,
+        "fill": "#FDBA74"
+      },
+      "cornerRadius": 24,
+      "children": [
+        {
+          "id": "scr01-invalid-title",
+          "type": "text",
+          "content": "SCR-01A Validation error state",
+          "fontSize": 28,
+          "fontWeight": "600",
+          "fill": "#7C2D12"
+        },
+        {
+          "id": "scr01-invalid-banner",
+          "type": "frame",
+          "width": "fill_container",
+          "height": 96,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "fill": "#FEF2F2",
+          "stroke": {
+            "thickness": 1,
+            "fill": "#FCA5A5"
+          },
+          "cornerRadius": 16,
+          "children": [
+            {
+              "id": "scr01-invalid-banner-title",
+              "type": "text",
+              "content": "Cannot run auto-packing",
+              "fontSize": 16,
+              "fontWeight": "600",
+              "fill": "#991B1B"
+            },
+            {
+              "id": "scr01-invalid-banner-text",
+              "type": "text",
+              "content": "Missing pallet position and quantity error on BX-003. Button state must remain disabled until all errors are resolved.",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "fontSize": 14,
+              "lineHeight": 1.4,
+              "fill": "#7F1D1D"
+            }
+          ]
+        },
+        {
+          "id": "scr01-invalid-row",
+          "type": "frame",
+          "width": "fill_container",
+          "height": 74,
+          "layout": "horizontal",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "padding": [0, 16],
+          "fill": "#FFFFFF",
+          "stroke": {
+            "thickness": 1,
+            "fill": "#FDBA74"
+          },
+          "cornerRadius": 16,
+          "children": [
+            {
+              "id": "scr01-invalid-row-text",
+              "type": "text",
+              "content": "BX-003 quantity must be greater than 0",
+              "fontSize": 15,
+              "fill": "#7C2D12"
+            },
+            {
+              "id": "scr01-invalid-chip",
+              "type": "frame",
+              "layout": "horizontal",
+              "padding": [10, 14],
+              "fill": "#FED7AA",
+              "cornerRadius": 999,
+              "children": [
+                {
+                  "id": "scr01-invalid-chip-text",
+                  "type": "text",
+                  "content": "Line-level error",
+                  "fontSize": 13,
+                  "fontWeight": "600",
+                  "fill": "#9A3412"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scr01-invalid-button",
+          "type": "frame",
+          "width": "fill_container",
+          "height": 56,
+          "layout": "horizontal",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "fill": "#CBD5E1",
+          "cornerRadius": 16,
+          "children": [
+            {
+              "id": "scr01-invalid-button-text",
+              "type": "text",
+              "content": "Run Auto-packing (Disabled)",
+              "fontSize": 16,
+              "fontWeight": "600",
+              "fill": "#475569"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR-02-3d-workspace",
+      "name": "SCR-02 3D packing workspace",
+      "type": "frame",
+      "x": 40,
+      "y": 1040,
+      "width": 1440,
+      "height": 960,
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 32,
+      "fill": "#F8FAFC",
+      "stroke": {
+        "thickness": 1,
+        "fill": "#CBD5E1"
+      },
+      "cornerRadius": 24,
+      "children": [
+        {
+          "id": "scr02-header",
+          "type": "frame",
+          "width": "fill_container",
+          "height": "fit_content",
+          "layout": "horizontal",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "scr02-title-stack",
+              "type": "frame",
+              "layout": "vertical",
+              "gap": 8,
+              "width": "fill_container",
+              "children": [
+                {
+                  "id": "scr02-title",
+                  "type": "text",
+                  "content": "SCR-02 3D packing workspace",
+                  "fontSize": 32,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr02-desc",
+                  "type": "text",
+                  "content": "Canvas 3D để review layout, zoom, rotate, chọn box, kéo thả và xoay box trong phạm vi POC.",
+                  "textGrowth": "fixed-width",
+                  "width": 760,
+                  "fontSize": 16,
+                  "lineHeight": 1.4,
+                  "fill": "#475569"
+                }
+              ]
+            },
+            {
+              "id": "scr02-toolbar",
+              "type": "frame",
+              "layout": "horizontal",
+              "gap": 12,
+              "children": [
+                {
+                  "id": "scr02-zoom-chip",
+                  "type": "frame",
+                  "layout": "horizontal",
+                  "padding": [10, 14],
+                  "fill": "#E2E8F0",
+                  "cornerRadius": 999,
+                  "children": [
+                    {
+                      "id": "scr02-zoom-chip-text",
+                      "type": "text",
+                      "content": "Zoom",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#334155"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr02-rotate-chip",
+                  "type": "frame",
+                  "layout": "horizontal",
+                  "padding": [10, 14],
+                  "fill": "#E2E8F0",
+                  "cornerRadius": 999,
+                  "children": [
+                    {
+                      "id": "scr02-rotate-chip-text",
+                      "type": "text",
+                      "content": "Rotate",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#334155"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr02-manual-chip",
+                  "type": "frame",
+                  "layout": "horizontal",
+                  "padding": [10, 14],
+                  "fill": "#E2E8F0",
+                  "cornerRadius": 999,
+                  "children": [
+                    {
+                      "id": "scr02-manual-chip-text",
+                      "type": "text",
+                      "content": "Manual adjustment enabled",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#334155"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scr02-body",
+          "type": "frame",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "horizontal",
+          "gap": 24,
+          "children": [
+            {
+              "id": "scr02-canvas-card",
+              "type": "frame",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 20,
+              "children": [
+                {
+                  "id": "scr02-canvas-header",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": "fit_content",
+                  "layout": "horizontal",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "id": "scr02-canvas-title",
+                      "type": "text",
+                      "content": "3D Layout Canvas",
+                      "fontSize": 20,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr02-canvas-state",
+                      "type": "text",
+                      "content": "State: box-selected",
+                      "fontSize": 14,
+                      "fill": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr02-stage",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "layout": "none",
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#CBD5E1"
+                  },
+                  "cornerRadius": 20,
+                  "children": [
+                    {
+                      "id": "scr02-grid-label",
+                      "type": "text",
+                      "x": 28,
+                      "y": 24,
+                      "content": "Perspective grid / orbit view",
+                      "fontSize": 14,
+                      "fill": "#64748B"
+                    },
+                    {
+                      "id": "scr02-pallet-base",
+                      "type": "rectangle",
+                      "x": 210,
+                      "y": 360,
+                      "width": 430,
+                      "height": 180,
+                      "fill": "#E2E8F0",
+                      "stroke": {
+                        "thickness": 2,
+                        "fill": "#94A3B8"
+                      },
+                      "cornerRadius": 18
+                    },
+                    {
+                      "id": "scr02-box-1",
+                      "type": "rectangle",
+                      "x": 258,
+                      "y": 308,
+                      "width": 110,
+                      "height": 92,
+                      "fill": "#CBD5E1",
+                      "stroke": {
+                        "thickness": 2,
+                        "fill": "#475569"
+                      },
+                      "cornerRadius": 14
+                    },
+                    {
+                      "id": "scr02-box-2",
+                      "type": "rectangle",
+                      "x": 378,
+                      "y": 290,
+                      "width": 126,
+                      "height": 110,
+                      "fill": "#CBD5E1",
+                      "stroke": {
+                        "thickness": 2,
+                        "fill": "#475569"
+                      },
+                      "cornerRadius": 14
+                    },
+                    {
+                      "id": "scr02-box-3",
+                      "type": "rectangle",
+                      "x": 520,
+                      "y": 326,
+                      "width": 86,
+                      "height": 74,
+                      "fill": "#94A3B8",
+                      "stroke": {
+                        "thickness": 3,
+                        "fill": "#0F172A"
+                      },
+                      "cornerRadius": 14
+                    },
+                    {
+                      "id": "scr02-selection-outline",
+                      "type": "rectangle",
+                      "x": 514,
+                      "y": 320,
+                      "width": 98,
+                      "height": 86,
+                      "fill": {
+                        "type": "color",
+                        "enabled": false,
+                        "color": "#000000"
+                      },
+                      "stroke": {
+                        "thickness": 3,
+                        "fill": "#0F172A"
+                      },
+                      "cornerRadius": 16
+                    },
+                    {
+                      "id": "scr02-axis-x",
+                      "type": "line",
+                      "x": 84,
+                      "y": 566,
+                      "width": 94,
+                      "height": 0,
+                      "stroke": {
+                        "thickness": 3,
+                        "align": "center",
+                        "fill": "#64748B"
+                      }
+                    },
+                    {
+                      "id": "scr02-axis-y",
+                      "type": "line",
+                      "x": 84,
+                      "y": 566,
+                      "width": 0,
+                      "height": -94,
+                      "stroke": {
+                        "thickness": 3,
+                        "align": "center",
+                        "fill": "#64748B"
+                      }
+                    },
+                    {
+                      "id": "scr02-axis-z",
+                      "type": "line",
+                      "x": 84,
+                      "y": 566,
+                      "width": 52,
+                      "height": -52,
+                      "stroke": {
+                        "thickness": 3,
+                        "align": "center",
+                        "fill": "#64748B"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "scr02-side-panel",
+              "type": "frame",
+              "width": 340,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 20,
+              "children": [
+                {
+                  "id": "scr02-side-title",
+                  "type": "text",
+                  "content": "Selected Box Detail",
+                  "fontSize": 20,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr02-side-card",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 140,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#CBD5E1"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr02-side-box-id",
+                      "type": "text",
+                      "content": "Layout Box: LB-014 / BX-003",
+                      "fontSize": 15,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr02-side-layer",
+                      "type": "text",
+                      "content": "Layer: 3",
+                      "fontSize": 14,
+                      "fill": "#475569"
+                    },
+                    {
+                      "id": "scr02-side-orientation",
+                      "type": "text",
+                      "content": "Orientation: LWH",
+                      "fontSize": 14,
+                      "fill": "#475569"
+                    },
+                    {
+                      "id": "scr02-side-position",
+                      "type": "text",
+                      "content": "Position: x 52 / y 36 / z 60",
+                      "fontSize": 14,
+                      "fill": "#475569"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr02-side-actions-title",
+                  "type": "text",
+                  "content": "Manual actions",
+                  "fontSize": 18,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr02-action-drag",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 56,
+                  "layout": "horizontal",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "fill": "#E2E8F0",
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr02-action-drag-text",
+                      "type": "text",
+                      "content": "Drag selected box",
+                      "fontSize": 15,
+                      "fontWeight": "600",
+                      "fill": "#334155"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr02-action-rotate",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 56,
+                  "layout": "horizontal",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "fill": "#E2E8F0",
+                  "cornerRadius": 14,
+                  "children": [
+                    {
+                      "id": "scr02-action-rotate-text",
+                      "type": "text",
+                      "content": "Rotate selected box",
+                      "fontSize": 15,
+                      "fontWeight": "600",
+                      "fill": "#334155"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr02-warning-card",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 116,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "fill": "#FEF3C7",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#FCD34D"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr02-warning-title",
+                      "type": "text",
+                      "content": "Invalid-layout warning state",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#92400E"
+                    },
+                    {
+                      "id": "scr02-warning-text",
+                      "type": "text",
+                      "content": "Nếu thao tác drag hoặc rotate tạo chồng lấn hoặc vượt biên pallet, panel phải báo warning và yêu cầu revalidation.",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "fontSize": 14,
+                      "lineHeight": 1.4,
+                      "fill": "#78350F"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR-02-selection-warning",
+      "name": "SCR-02 Selection warning state",
+      "type": "frame",
+      "x": 1530,
+      "y": 1040,
+      "width": 720,
+      "height": 540,
+      "layout": "vertical",
+      "gap": 18,
+      "padding": 28,
+      "fill": "#FEFCE8",
+      "stroke": {
+        "thickness": 1,
+        "fill": "#FDE68A"
+      },
+      "cornerRadius": 24,
+      "children": [
+        {
+          "id": "scr02-warning-title-main",
+          "type": "text",
+          "content": "SCR-02A Invalid after manual move",
+          "fontSize": 28,
+          "fontWeight": "600",
+          "fill": "#713F12"
+        },
+        {
+          "id": "scr02-warning-preview",
+          "type": "frame",
+          "width": "fill_container",
+          "height": 220,
+          "layout": "none",
+          "fill": "#FFFFFF",
+          "stroke": {
+            "thickness": 1,
+            "fill": "#FDE68A"
+          },
+          "cornerRadius": 18,
+          "children": [
+            {
+              "id": "scr02-warning-pallet",
+              "type": "rectangle",
+              "x": 120,
+              "y": 96,
+              "width": 290,
+              "height": 84,
+              "fill": "#E2E8F0",
+              "stroke": {
+                "thickness": 2,
+                "fill": "#94A3B8"
+              },
+              "cornerRadius": 12
+            },
+            {
+              "id": "scr02-warning-box-good",
+              "type": "rectangle",
+              "x": 150,
+              "y": 58,
+              "width": 98,
+              "height": 64,
+              "fill": "#CBD5E1",
+              "stroke": {
+                "thickness": 2,
+                "fill": "#475569"
+              },
+              "cornerRadius": 12
+            },
+            {
+              "id": "scr02-warning-box-bad",
+              "type": "rectangle",
+              "x": 350,
+              "y": 44,
+              "width": 104,
+              "height": 78,
+              "fill": "#FCA5A5",
+              "stroke": {
+                "thickness": 3,
+                "fill": "#991B1B"
+              },
+              "cornerRadius": 12
+            }
+          ]
+        },
+        {
+          "id": "scr02-warning-description",
+          "type": "text",
+          "content": "Selected box vượt ngoài biên pallet. Workspace vẫn giữ thay đổi gần nhất nhưng trạng thái phải đánh dấu invalid và đồng bộ sang SCR-03.",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "fontSize": 15,
+          "lineHeight": 1.4,
+          "fill": "#854D0E"
+        }
+      ]
+    },
+    {
+      "id": "SCR-03-results-validation",
+      "name": "SCR-03 Kết quả và validation",
+      "type": "frame",
+      "x": 40,
+      "y": 2040,
+      "width": 1440,
+      "height": 960,
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 32,
+      "fill": "#F8FAFC",
+      "stroke": {
+        "thickness": 1,
+        "fill": "#CBD5E1"
+      },
+      "cornerRadius": 24,
+      "children": [
+        {
+          "id": "scr03-header",
+          "type": "frame",
+          "width": "fill_container",
+          "height": "fit_content",
+          "layout": "horizontal",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "scr03-title-stack",
+              "type": "frame",
+              "layout": "vertical",
+              "gap": 8,
+              "width": "fill_container",
+              "children": [
+                {
+                  "id": "scr03-title",
+                  "type": "text",
+                  "content": "SCR-03 Kết quả và validation",
+                  "fontSize": 32,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr03-desc",
+                  "type": "text",
+                  "content": "Tổng hợp metric, trạng thái hợp lệ, issue list và action reset hoặc quay lại workspace sau auto-pack hoặc manual adjustment.",
+                  "textGrowth": "fixed-width",
+                  "width": 760,
+                  "fontSize": 16,
+                  "lineHeight": 1.4,
+                  "fill": "#475569"
+                }
+              ]
+            },
+            {
+              "id": "scr03-status-chip",
+              "type": "frame",
+              "layout": "horizontal",
+              "padding": [10, 16],
+              "fill": "#DCFCE7",
+              "cornerRadius": 999,
+              "children": [
+                {
+                  "id": "scr03-status-chip-text",
+                  "type": "text",
+                  "content": "State: auto-pack-success",
+                  "fontSize": 14,
+                  "fontWeight": "600",
+                  "fill": "#166534"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scr03-summary-row",
+          "type": "frame",
+          "width": "fill_container",
+          "height": "fit_content",
+          "layout": "horizontal",
+          "gap": 16,
+          "children": [
+            {
+              "id": "scr03-card-util",
+              "type": "frame",
+              "width": "fill_container",
+              "height": 136,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 18,
+              "children": [
+                {
+                  "id": "scr03-card-util-label",
+                  "type": "text",
+                  "content": "Space Utilization",
+                  "fontSize": 14,
+                  "fill": "#64748B"
+                },
+                {
+                  "id": "scr03-card-util-value",
+                  "type": "text",
+                  "content": "86.4%",
+                  "fontSize": 40,
+                  "fontWeight": "700",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr03-card-util-note",
+                  "type": "text",
+                  "content": "Primary optimization metric",
+                  "fontSize": 14,
+                  "fill": "#475569"
+                }
+              ]
+            },
+            {
+              "id": "scr03-card-layer",
+              "type": "frame",
+              "width": "fill_container",
+              "height": 136,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 18,
+              "children": [
+                {
+                  "id": "scr03-card-layer-label",
+                  "type": "text",
+                  "content": "Layer Count",
+                  "fontSize": 14,
+                  "fill": "#64748B"
+                },
+                {
+                  "id": "scr03-card-layer-value",
+                  "type": "text",
+                  "content": "4",
+                  "fontSize": 40,
+                  "fontWeight": "700",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr03-card-layer-note",
+                  "type": "text",
+                  "content": "Derived from current layout",
+                  "fontSize": 14,
+                  "fill": "#475569"
+                }
+              ]
+            },
+            {
+              "id": "scr03-card-valid",
+              "type": "frame",
+              "width": "fill_container",
+              "height": 136,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 18,
+              "children": [
+                {
+                  "id": "scr03-card-valid-label",
+                  "type": "text",
+                  "content": "Validation State",
+                  "fontSize": 14,
+                  "fill": "#64748B"
+                },
+                {
+                  "id": "scr03-card-valid-value",
+                  "type": "text",
+                  "content": "Valid",
+                  "fontSize": 40,
+                  "fontWeight": "700",
+                  "fill": "#166534"
+                },
+                {
+                  "id": "scr03-card-valid-note",
+                  "type": "text",
+                  "content": "Reconfirmed after latest operation",
+                  "fontSize": 14,
+                  "fill": "#475569"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scr03-content-row",
+          "type": "frame",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "horizontal",
+          "gap": 24,
+          "children": [
+            {
+              "id": "scr03-issue-panel",
+              "type": "frame",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 20,
+              "children": [
+                {
+                  "id": "scr03-issue-title",
+                  "type": "text",
+                  "content": "Result interpretation",
+                  "fontSize": 20,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr03-issue-row-1",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 88,
+                  "layout": "vertical",
+                  "gap": 6,
+                  "padding": 16,
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr03-issue-row-1-title",
+                      "type": "text",
+                      "content": "Validation summary",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr03-issue-row-1-text",
+                      "type": "text",
+                      "content": "No overlap, no boundary violation, no height overflow detected.",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "fontSize": 14,
+                      "lineHeight": 1.4,
+                      "fill": "#475569"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr03-issue-row-2",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 88,
+                  "layout": "vertical",
+                  "gap": 6,
+                  "padding": 16,
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr03-issue-row-2-title",
+                      "type": "text",
+                      "content": "Layout quality note",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr03-issue-row-2-text",
+                      "type": "text",
+                      "content": "Layer count and utilization must refresh immediately after every manual change.",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "fontSize": 14,
+                      "lineHeight": 1.4,
+                      "fill": "#475569"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "scr03-action-panel",
+              "type": "frame",
+              "width": 360,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#CBD5E1"
+              },
+              "cornerRadius": 20,
+              "children": [
+                {
+                  "id": "scr03-action-title",
+                  "type": "text",
+                  "content": "Actions",
+                  "fontSize": 20,
+                  "fontWeight": "600",
+                  "fill": "#0F172A"
+                },
+                {
+                  "id": "scr03-open-workspace",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 56,
+                  "layout": "horizontal",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "fill": "#E2E8F0",
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr03-open-workspace-text",
+                      "type": "text",
+                      "content": "Open 3D Workspace",
+                      "fontSize": 15,
+                      "fontWeight": "600",
+                      "fill": "#334155"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr03-reset-button",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 56,
+                  "layout": "horizontal",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "fill": "#0F172A",
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr03-reset-button-text",
+                      "type": "text",
+                      "content": "Reset to Auto-pack",
+                      "fontSize": 15,
+                      "fontWeight": "600",
+                      "fill": "#F8FAFC"
+                    }
+                  ]
+                },
+                {
+                  "id": "scr03-disabled-note",
+                  "type": "frame",
+                  "width": "fill_container",
+                  "height": 96,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "fill": "#F8FAFC",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E2E8F0"
+                  },
+                  "cornerRadius": 16,
+                  "children": [
+                    {
+                      "id": "scr03-disabled-note-title",
+                      "type": "text",
+                      "content": "Reset state rule",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "fill": "#0F172A"
+                    },
+                    {
+                      "id": "scr03-disabled-note-text",
+                      "type": "text",
+                      "content": "Nếu chưa có manual change thì action reset phải disabled hoặc hidden.",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "fontSize": 14,
+                      "lineHeight": 1.4,
+                      "fill": "#475569"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCR-03-invalid-state",
+      "name": "SCR-03 Invalid state after manual change",
+      "type": "frame",
+      "x": 1530,
+      "y": 2040,
+      "width": 720,
+      "height": 540,
+      "layout": "vertical",
+      "gap": 18,
+      "padding": 28,
+      "fill": "#FEF2F2",
+      "stroke": {
+        "thickness": 1,
+        "fill": "#FCA5A5"
+      },
+      "cornerRadius": 24,
+      "children": [
+        {
+          "id": "scr03-invalid-title",
+          "type": "text",
+          "content": "SCR-03A Invalid after manual adjustment",
+          "fontSize": 28,
+          "fontWeight": "600",
+          "fill": "#991B1B"
+        },
+        {
+          "id": "scr03-invalid-summary",
+          "type": "frame",
+          "width": "fill_container",
+          "height": 110,
+          "layout": "horizontal",
+          "gap": 14,
+          "children": [
+            {
+              "id": "scr03-invalid-card-state",
+              "type": "frame",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 14,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#FECACA"
+              },
+              "cornerRadius": 16,
+              "children": [
+                {
+                  "id": "scr03-invalid-card-state-label",
+                  "type": "text",
+                  "content": "Validation",
+                  "fontSize": 13,
+                  "fill": "#7F1D1D"
+                },
+                {
+                  "id": "scr03-invalid-card-state-value",
+                  "type": "text",
+                  "content": "Invalid",
+                  "fontSize": 30,
+                  "fontWeight": "700",
+                  "fill": "#991B1B"
+                }
+              ]
+            },
+            {
+              "id": "scr03-invalid-card-metric",
+              "type": "frame",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 14,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": 1,
+                "fill": "#FECACA"
+              },
+              "cornerRadius": 16,
+              "children": [
+                {
+                  "id": "scr03-invalid-card-metric-label",
+                  "type": "text",
+                  "content": "Utilization",
+                  "fontSize": 13,
+                  "fill": "#7F1D1D"
+                },
+                {
+                  "id": "scr03-invalid-card-metric-value",
+                  "type": "text",
+                  "content": "82.1%",
+                  "fontSize": 30,
+                  "fontWeight": "700",
+                  "fill": "#991B1B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scr03-invalid-list",
+          "type": "frame",
+          "width": "fill_container",
+          "height": 170,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 16,
+          "fill": "#FFFFFF",
+          "stroke": {
+            "thickness": 1,
+            "fill": "#FECACA"
+          },
+          "cornerRadius": 16,
+          "children": [
+            {
+              "id": "scr03-invalid-list-title",
+              "type": "text",
+              "content": "Issue List",
+              "fontSize": 16,
+              "fontWeight": "600",
+              "fill": "#991B1B"
+            },
+            {
+              "id": "scr03-invalid-list-item-1",
+              "type": "text",
+              "content": "1. Box LB-014 overlaps BX-002 on layer 3.",
+              "fontSize": 14,
+              "fill": "#7F1D1D"
+            },
+            {
+              "id": "scr03-invalid-list-item-2",
+              "type": "text",
+              "content": "2. Current placement extends beyond pallet width by 4 cm.",
+              "fontSize": 14,
+              "fill": "#7F1D1D"
+            }
+          ]
+        },
+        {
+          "id": "scr03-invalid-cta",
+          "type": "frame",
+          "width": "fill_container",
+          "height": 56,
+          "layout": "horizontal",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "fill": "#991B1B",
+          "cornerRadius": 16,
+          "children": [
+            {
+              "id": "scr03-invalid-cta-text",
+              "type": "text",
+              "content": "Return to Workspace and Fix",
+              "fontSize": 15,
+              "fontWeight": "600",
+              "fill": "#FEF2F2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

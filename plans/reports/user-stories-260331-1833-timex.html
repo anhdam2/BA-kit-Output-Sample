@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>user-stories-260331-1833-timex</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #0f766e;
+      --code-bg: #f3f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 980px;
+      margin: 32px auto;
+      padding: 40px 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06);
+    }
+    header {
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    h1, h2, h3, h4 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    a { color: var(--accent); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f9fafb; }
+    code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    blockquote {
+      margin: 20px 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--accent);
+      background: #f0fdfa;
+    }
+    ul, ol { padding-left: 24px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>user-stories-260331-1833-timex</h1>
+      <p>Tài liệu BA xuất từ Markdown</p>
+    </header>
+    <h1 id="user-stories">User Stories</h1>
+<h2 id="1-metadata">1. Metadata</h2>
+<ul>
+<li>Project: TimeX</li>
+<li>Slug: <code>timex</code></li>
+<li>Date set: <code>260331-1833</code></li>
+<li>Source backbone: <code>plans/reports/backbone-260331-1833-timex.md</code></li>
+<li>Source FRD: <code>plans/reports/frd-260331-1833-timex.md</code></li>
+<li>Mode: <code>hybrid</code></li>
+<li>Output language: Tiếng Việt</li>
+</ul>
+<h2 id="2-epic-overview">2. Epic Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Epic ID</th>
+<th>Epic</th>
+<th>Mục tiêu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EP-01</td>
+<td>Pallet Context And Box Input</td>
+<td>Chuẩn bị dữ liệu đầu vào đúng và đủ để chạy packing</td>
+</tr>
+<tr>
+<td>EP-02</td>
+<td>Auto-packing And Result Generation</td>
+<td>Sinh phương án xếp ban đầu tối ưu theo utilization</td>
+</tr>
+<tr>
+<td>EP-03</td>
+<td>3D Visualization And Inspection</td>
+<td>Cho phép người dùng quan sát và hiểu layout</td>
+</tr>
+<tr>
+<td>EP-04</td>
+<td>Manual Adjustment And Revalidation</td>
+<td>Cho phép chỉnh tay và kiểm tra lại tính hợp lệ</td>
+</tr>
+<tr>
+<td>EP-05</td>
+<td>Recovery And Convenience</td>
+<td>Hỗ trợ thao tác thuận tiện trong phạm vi POC</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-user-stories">3. User Stories</h2>
+<h3 id="ep-01-pallet-context-and-box-input">EP-01. Pallet Context And Box Input</h3>
+<h4 id="us-01-chon-vi-tri-pallet">US-01 Chọn vị trí pallet</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-01</code>, <code>FR-02</code></li>
+<li>Linked Screens: <code>SCR-01</code></li>
+<li>Story:
+  As a nhân viên kho, I want to chọn vị trí pallet áp dụng so that hệ thống nạp đúng giới hạn không gian cho phương án xếp.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given người dùng đang ở màn hình input, when chọn một vị trí pallet hợp lệ, then hệ thống hiển thị đúng cấu hình pallet tương ứng.</li>
+<li>Given vị trí pallet đã được chọn, when cấu hình pallet được nạp xong, then chiều dài, chiều rộng, và giới hạn chiều cao phải sẵn sàng cho bước packing.</li>
+<li>Given người dùng chưa chọn vị trí pallet, when cố chạy auto-packing, then hệ thống phải chặn thao tác và yêu cầu chọn vị trí pallet trước.</li>
+</ul>
+<h4 id="us-02-chon-box-tu-catalog-chuan">US-02 Chọn box từ catalog chuẩn</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-03</code>, <code>FR-04</code>, <code>FR-06</code></li>
+<li>Linked Screens: <code>SCR-01</code></li>
+<li>Story:
+  As a nhân viên kho, I want to chọn một hoặc nhiều <code>Carton Code</code> từ catalog box chuẩn so that tôi dùng đúng kích thước box được chuẩn hóa.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given catalog box đã được nạp, when người dùng chọn một <code>Carton Code</code>, then hệ thống phải hiển thị đúng mô tả và kích thước chuẩn tương ứng.</li>
+<li>Given người dùng chọn nhiều <code>Carton Code</code>, when danh sách được cập nhật, then hệ thống phải giữ được từng loại box như các dòng riêng biệt.</li>
+<li>Given box được chọn từ catalog, when hệ thống hiển thị thông tin chi tiết, then người dùng không cần nhập lại chiều dài, rộng, cao bằng tay.</li>
+</ul>
+<h4 id="us-03-nhap-so-luong-box-theo-loai">US-03 Nhập số lượng box theo loại</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-04</code>, <code>FR-05</code></li>
+<li>Linked Screens: <code>SCR-01</code></li>
+<li>Story:
+  As a nhân viên kho, I want to nhập số lượng cho từng loại box đã chọn so that hệ thống có đủ dữ liệu để tính toán phương án xếp.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given danh sách box đã được chọn, when người dùng nhập số lượng cho từng loại, then hệ thống lưu được số lượng theo từng <code>Carton Code</code>.</li>
+<li>Given người dùng thay đổi số lượng của một loại box, when dữ liệu được cập nhật, then chỉ dòng tương ứng bị thay đổi.</li>
+<li>Given chưa có loại box nào được chọn, when người dùng cố nhập số lượng hoặc chạy packing, then hệ thống phải hướng dẫn chọn box trước.</li>
+</ul>
+<h4 id="us-04-validate-du-lieu-au-vao">US-04 Validate dữ liệu đầu vào</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-07</code></li>
+<li>Linked Screens: <code>SCR-01</code></li>
+<li>Story:
+  As a nhân viên kho, I want hệ thống validate dữ liệu đầu vào trước khi chạy packing so that tôi tránh tạo ra phương án từ dữ liệu sai.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given vị trí pallet hoặc dữ liệu box còn thiếu, when người dùng chạy auto-packing, then hệ thống phải chặn và hiển thị lỗi rõ ràng.</li>
+<li>Given số lượng box không hợp lệ, when người dùng xác nhận thao tác, then hệ thống phải yêu cầu sửa dữ liệu trước khi tiếp tục.</li>
+<li>Given toàn bộ input hợp lệ, when người dùng chạy auto-packing, then hệ thống phải cho phép chuyển sang bước tính toán.</li>
+</ul>
+<h3 id="ep-02-auto-packing-and-result-generation">EP-02. Auto-packing And Result Generation</h3>
+<h4 id="us-05-sinh-phuong-an-xep-tu-ong">US-05 Sinh phương án xếp tự động</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-08</code>, <code>FR-09</code></li>
+<li>Linked Screens: <code>SCR-01</code>, <code>SCR-02</code>, <code>SCR-03</code></li>
+<li>Story:
+  As a nhân viên kho, I want hệ thống sinh phương án xếp tự động so that tôi có điểm khởi đầu tốt mà không phải thử-sai hoàn toàn bằng tay.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given dữ liệu đầu vào hợp lệ, when người dùng chạy auto-packing, then hệ thống phải trả về ít nhất một layout khả thi trong giới hạn pallet.</li>
+<li>Given layout được sinh, when hệ thống hoàn tất xử lý, then phương án không được vượt chiều dài, chiều rộng, hoặc chiều cao pallet.</li>
+<li>Given có nhiều cách đặt box khả thi trong phạm vi heuristic, when hệ thống chọn kết quả gợi ý, then phương án phải ưu tiên utilization cao hơn.</li>
+</ul>
+<h4 id="us-06-xem-metric-ket-qua">US-06 Xem metric kết quả</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-16</code></li>
+<li>Linked Screens: <code>SCR-03</code></li>
+<li>Story:
+  As a nhân viên kho, I want xem metric utilization và layer count so that tôi hiểu nhanh chất lượng phương án xếp.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given auto-packing đã hoàn thành, when kết quả được hiển thị, then hệ thống phải hiển thị <code>space utilization</code>.</li>
+<li>Given auto-packing đã hoàn thành, when kết quả được hiển thị, then hệ thống phải hiển thị <code>layer count</code>.</li>
+<li>Given layout thay đổi sau chỉnh tay, when metric được làm mới, then màn hình kết quả phải phản ánh số liệu mới nhất.</li>
+</ul>
+<h3 id="ep-03-3d-visualization-and-inspection">EP-03. 3D Visualization And Inspection</h3>
+<h4 id="us-07-quan-sat-layout-3d">US-07 Quan sát layout 3D</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-10</code>, <code>FR-11</code></li>
+<li>Linked Screens: <code>SCR-02</code></li>
+<li>Story:
+  As a nhân viên kho, I want xem layout ở dạng 3D với zoom và rotate so that tôi hiểu trực quan cách các box nằm trong pallet.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given layout đã được sinh, when người dùng mở 3D workspace, then hệ thống phải hiển thị pallet và các box trong không gian 3D.</li>
+<li>Given workspace đang mở, when người dùng thao tác zoom, then góc nhìn phải thay đổi tương ứng mà không làm mất layout.</li>
+<li>Given workspace đang mở, when người dùng xoay góc nhìn, then người dùng phải quan sát được layout từ nhiều hướng.</li>
+</ul>
+<h4 id="us-08-chon-box-e-kiem-tra">US-08 Chọn box để kiểm tra</h4>
+<ul>
+<li>Priority: Must</li>
+<li>Linked FR: <code>FR-12</code></li>
+<li>Linked Screens: <code>SCR-02</code></li>
+<li>Story:
+  As a nhân viên kho, I want chọn từng box trong 3D workspace so that tôi có thể kiểm tra vị trí và orientation của box đó.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given layout đang hiển thị, when người dùng chọn một box, then box đó phải được nhận diện rõ trên workspace.</li>
+<li>Given một box đã được chọn, when trạng thái được hiển thị, then người dùng phải thấy được box đang ở vị trí nào trong layout.</li>
+<li>Given box được chọn, when người dùng chuyển sang box khác, then hệ thống phải cập nhật selection tương ứng.</li>
+</ul>
+<h3 id="ep-04-manual-adjustment-and-revalidation">EP-04. Manual Adjustment And Revalidation</h3>
+<h4 id="us-09-keo-tha-box-e-chinh-tay">US-09 Kéo thả box để chỉnh tay</h4>
+<ul>
+<li>Priority: Should</li>
+<li>Linked FR: <code>FR-13</code>, <code>FR-15</code></li>
+<li>Linked Screens: <code>SCR-02</code>, <code>SCR-03</code></li>
+<li>Story:
+  As a nhân viên kho, I want kéo thả box trong workspace so that tôi có thể thử điều chỉnh layout theo quan sát thực tế.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given một box đang được chọn, when người dùng kéo box sang vị trí khác, then hệ thống phải cập nhật layout theo thay đổi đó.</li>
+<li>Given box được kéo sang vị trí không hợp lệ, when thao tác kết thúc, then hệ thống phải phản ánh trạng thái không hợp lệ hoặc cảnh báo tương ứng.</li>
+<li>Given layout thay đổi do kéo thả, when hệ thống hoàn tất cập nhật, then metric và validation state phải được làm mới.</li>
+</ul>
+<h4 id="us-10-xoay-box-khi-can-ieu-chinh">US-10 Xoay box khi cần điều chỉnh</h4>
+<ul>
+<li>Priority: Should</li>
+<li>Linked FR: <code>FR-14</code>, <code>FR-15</code></li>
+<li>Linked Screens: <code>SCR-02</code>, <code>SCR-03</code></li>
+<li>Story:
+  As a nhân viên kho, I want xoay box trong layout so that tôi có thể kiểm tra các cách sắp xếp khác nhau mà không cần nhập lại dữ liệu.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given một box đang được chọn, when người dùng thực hiện lệnh xoay, then orientation của box phải được cập nhật trong layout.</li>
+<li>Given orientation mới làm layout không hợp lệ, when hệ thống kiểm tra xong, then trạng thái lỗi hoặc cảnh báo phải được hiển thị rõ.</li>
+<li>Given orientation mới hợp lệ, when layout được cập nhật, then metric kết quả phải phản ánh cấu hình mới.</li>
+</ul>
+<h4 id="us-11-xem-lai-trang-thai-hop-le-sau-chinh-tay">US-11 Xem lại trạng thái hợp lệ sau chỉnh tay</h4>
+<ul>
+<li>Priority: Should</li>
+<li>Linked FR: <code>FR-15</code>, <code>FR-16</code></li>
+<li>Linked Screens: <code>SCR-03</code></li>
+<li>Story:
+  As a nhân viên kho, I want xem trạng thái hợp lệ sau mỗi lần chỉnh tay so that tôi biết layout hiện tại còn dùng được hay không.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given người dùng vừa kéo thả hoặc xoay box, when hệ thống kiểm tra lại layout, then phải có validation state mới.</li>
+<li>Given layout hợp lệ, when trạng thái được hiển thị, then người dùng thấy rõ kết quả có thể chấp nhận.</li>
+<li>Given layout không hợp lệ, when trạng thái được hiển thị, then người dùng phải nhận biết được rằng cần chỉnh lại.</li>
+</ul>
+<h3 id="ep-05-recovery-and-convenience">EP-05. Recovery And Convenience</h3>
+<h4 id="us-12-reset-ve-layout-auto-pack-ban-au">US-12 Reset về layout auto-pack ban đầu</h4>
+<ul>
+<li>Priority: Could</li>
+<li>Linked FR: <code>FR-17</code></li>
+<li>Linked Screens: <code>SCR-03</code></li>
+<li>Story:
+  As a nhân viên kho, I want reset layout về kết quả auto-pack ban đầu so that tôi có thể thử lại nhanh sau khi chỉnh tay không như mong muốn.</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>Given người dùng đã chỉnh tay layout, when chọn reset, then hệ thống khôi phục layout auto-pack ban đầu.</li>
+<li>Given reset hoàn tất, when màn hình được cập nhật, then 3D workspace và metric phải quay về trạng thái ban đầu của auto-pack.</li>
+<li>Given người dùng chưa chỉnh tay, when xem tùy chọn reset, then hệ thống có thể ẩn hoặc vô hiệu hóa thao tác này.</li>
+</ul>
+<h2 id="4-invest-validation">4. INVEST Validation</h2>
+<table>
+<thead>
+<tr>
+<th>Story ID</th>
+<th>Independent</th>
+<th>Negotiable</th>
+<th>Valuable</th>
+<th>Estimable</th>
+<th>Small</th>
+<th>Testable</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US-01</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Tách biệt khỏi luồng box catalog</td>
+</tr>
+<tr>
+<td>US-02</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có thể làm trước phần 3D</td>
+</tr>
+<tr>
+<td>US-03</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Bám chặt vào catalog workflow</td>
+</tr>
+<tr>
+<td>US-04</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Validation tách riêng để dễ test</td>
+</tr>
+<tr>
+<td>US-05</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Vừa</td>
+<td>Có</td>
+<td>Story lõi của sản phẩm</td>
+</tr>
+<tr>
+<td>US-06</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Metric hiển thị tách khỏi thuật toán</td>
+</tr>
+<tr>
+<td>US-07</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Vừa</td>
+<td>Có</td>
+<td>Có phụ thuộc layout result</td>
+</tr>
+<tr>
+<td>US-08</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Bổ sung cho workspace 3D</td>
+</tr>
+<tr>
+<td>US-09</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Vừa</td>
+<td>Có</td>
+<td>POC scope ở mức Should</td>
+</tr>
+<tr>
+<td>US-10</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có thể thực hiện cùng manual adjustment layer</td>
+</tr>
+<tr>
+<td>US-11</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Validation sau chỉnh tay</td>
+</tr>
+<tr>
+<td>US-12</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Có</td>
+<td>Convenience feature, không chặn POC</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-story-to-screen-alignment">5. Story To Screen Alignment</h2>
+<table>
+<thead>
+<tr>
+<th>Story ID</th>
+<th>Screen</th>
+<th>Mục đích chính</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US-01</td>
+<td><code>SCR-01</code></td>
+<td>Chọn vị trí pallet</td>
+</tr>
+<tr>
+<td>US-02</td>
+<td><code>SCR-01</code></td>
+<td>Chọn <code>Carton Code</code> từ catalog</td>
+</tr>
+<tr>
+<td>US-03</td>
+<td><code>SCR-01</code></td>
+<td>Nhập số lượng từng loại box</td>
+</tr>
+<tr>
+<td>US-04</td>
+<td><code>SCR-01</code></td>
+<td>Validate dữ liệu đầu vào</td>
+</tr>
+<tr>
+<td>US-05</td>
+<td><code>SCR-01</code>, <code>SCR-02</code>, <code>SCR-03</code></td>
+<td>Kích hoạt packing và nhận layout kết quả</td>
+</tr>
+<tr>
+<td>US-06</td>
+<td><code>SCR-03</code></td>
+<td>Xem utilization và layer count</td>
+</tr>
+<tr>
+<td>US-07</td>
+<td><code>SCR-02</code></td>
+<td>Quan sát layout 3D</td>
+</tr>
+<tr>
+<td>US-08</td>
+<td><code>SCR-02</code></td>
+<td>Chọn box và kiểm tra</td>
+</tr>
+<tr>
+<td>US-09</td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+<td>Kéo thả box và xem trạng thái mới</td>
+</tr>
+<tr>
+<td>US-10</td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+<td>Xoay box và xem trạng thái mới</td>
+</tr>
+<tr>
+<td>US-11</td>
+<td><code>SCR-03</code></td>
+<td>Xem validation state sau chỉnh tay</td>
+</tr>
+<tr>
+<td>US-12</td>
+<td><code>SCR-03</code></td>
+<td>Reset về layout auto-pack</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-story-to-requirement-traceability">6. Story To Requirement Traceability</h2>
+<table>
+<thead>
+<tr>
+<th>Story ID</th>
+<th>FR coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US-01</td>
+<td><code>FR-01</code>, <code>FR-02</code></td>
+</tr>
+<tr>
+<td>US-02</td>
+<td><code>FR-03</code>, <code>FR-04</code>, <code>FR-06</code></td>
+</tr>
+<tr>
+<td>US-03</td>
+<td><code>FR-04</code>, <code>FR-05</code></td>
+</tr>
+<tr>
+<td>US-04</td>
+<td><code>FR-07</code></td>
+</tr>
+<tr>
+<td>US-05</td>
+<td><code>FR-08</code>, <code>FR-09</code></td>
+</tr>
+<tr>
+<td>US-06</td>
+<td><code>FR-16</code></td>
+</tr>
+<tr>
+<td>US-07</td>
+<td><code>FR-10</code>, <code>FR-11</code></td>
+</tr>
+<tr>
+<td>US-08</td>
+<td><code>FR-12</code></td>
+</tr>
+<tr>
+<td>US-09</td>
+<td><code>FR-13</code>, <code>FR-15</code></td>
+</tr>
+<tr>
+<td>US-10</td>
+<td><code>FR-14</code>, <code>FR-15</code></td>
+</tr>
+<tr>
+<td>US-11</td>
+<td><code>FR-15</code>, <code>FR-16</code></td>
+</tr>
+<tr>
+<td>US-12</td>
+<td><code>FR-17</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-recommended-downstream-use">7. Recommended Downstream Use</h2>
+<ul>
+<li>Dùng <code>US-01</code> đến <code>US-06</code> để dẫn hướng các use case cốt lõi trong SRS.</li>
+<li>Dùng <code>US-07</code> đến <code>US-11</code> để viết <code>Screen Contract Lite</code> cho <code>SCR-02</code> và <code>SCR-03</code>.</li>
+<li>Dùng <code>US-04</code>, <code>US-09</code>, <code>US-10</code>, <code>US-11</code> làm nguồn chính cho validation rules và state handling.</li>
+</ul>
+  </main>
+</body>
+</html>

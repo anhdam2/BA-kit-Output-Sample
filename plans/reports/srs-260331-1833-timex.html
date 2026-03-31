@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>srs-260331-1833-timex</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #0f766e;
+      --code-bg: #f3f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 980px;
+      margin: 32px auto;
+      padding: 40px 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06);
+    }
+    header {
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    h1, h2, h3, h4 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    a { color: var(--accent); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f9fafb; }
+    code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    blockquote {
+      margin: 20px 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--accent);
+      background: #f0fdfa;
+    }
+    img {
+      display: block;
+      max-width: min(100%, 720px);
+      width: auto;
+      height: auto;
+      margin: 24px auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      background: #fff;
+    }
+    .mermaid {
+      margin: 24px 0;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      overflow-x: auto;
+    }
+    ul, ol { padding-left: 24px; }
+  </style>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "neutral",
+      securityLevel: "loose",
+      flowchart: { useMaxWidth: true, htmlLabels: true }
+    });
+  </script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>srs-260331-1833-timex</h1>
+      <p>Tài liệu BA xuất từ Markdown</p>
+    </header>
+    <h1 id="software-requirements-specification">Software Requirements Specification</h1>
+<h2 id="1-metadata">1. Metadata</h2>
+<ul>
+<li>Project: TimeX</li>
+<li>Slug: <code>timex</code></li>
+<li>Date set: <code>260331-1833</code></li>
+<li>Mode: <code>hybrid</code></li>
+<li>Platform: Web app POC</li>
+<li>Output language: Tiếng Việt</li>
+<li>Source backbone: <code>plans/reports/backbone-260331-1833-timex.md</code></li>
+<li>Source user stories: <code>plans/reports/user-stories-260331-1833-timex.md</code></li>
+<li>Source FRD: <code>plans/reports/frd-260331-1833-timex.md</code></li>
+</ul>
+<h2 id="2-purpose-and-scope">2. Purpose And Scope</h2>
+<p>Tài liệu này mô tả đặc tả phần mềm chọn lọc cho POC TimeX, tập trung vào luồng <code>catalog-first</code> để xếp box chuẩn lên pallet bằng auto-packing và 3D workspace. SRS này dùng để handoff cho implementation, wireframing, và validation/UAT.</p>
+<p>In-scope:</p>
+<ul>
+<li>Chọn vị trí pallet và nạp pallet constraints theo vị trí.</li>
+<li>Chọn <code>Carton Code</code> từ catalog chuẩn và nhập số lượng theo loại.</li>
+<li>Validate request trước khi chạy packing.</li>
+<li>Sinh baseline layout bằng auto-packing.</li>
+<li>Review layout qua 3D workspace.</li>
+<li>Manual adjustment bằng drag/drop và rotate ở mức POC.</li>
+<li>Hiển thị <code>space utilization</code>, <code>layer count</code>, <code>validation state</code>.</li>
+<li>Reset về baseline auto-pack.</li>
+</ul>
+<p>Out-of-scope:</p>
+<ul>
+<li>Box ngoài catalog chuẩn.</li>
+<li>WMS/ERP integration.</li>
+<li>User management và persistence dài hạn.</li>
+<li>Multi-objective optimization logistics.</li>
+</ul>
+<h2 id="3-overall-description">3. Overall Description</h2>
+<p>TimeX là web app POC cho nhân viên kho. Hệ thống nhận pallet position và selected box items từ catalog chuẩn, sau đó tính toán layout gợi ý khả thi. Người dùng kiểm tra kết quả qua 3D workspace, chỉnh tay nếu cần và dùng metric để đánh giá kết quả.</p>
+<p>Actors:</p>
+<table>
+<thead>
+<tr>
+<th>Actor</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nhân viên kho</td>
+<td>Người dùng chính thao tác từ input đến review layout</td>
+</tr>
+<tr>
+<td>Lead kho / vận hành</td>
+<td>Reviewer nghiệp vụ cho POC</td>
+</tr>
+<tr>
+<td>Auto-packing service</td>
+<td>Tính toán layout baseline</td>
+</tr>
+<tr>
+<td>Validation engine</td>
+<td>Revalidate layout sau manual change</td>
+</tr>
+</tbody>
+</table>
+<p>Assumptions:</p>
+<ul>
+<li>Dữ liệu pallet position và box catalog được seed nội bộ.</li>
+<li>Người dùng thao tác trên desktop browser.</li>
+<li><code>volume weight</code>, <code>annual volume</code>, <code>annual volume weight</code>, <code>freight cost</code> chỉ dùng tham chiếu.</li>
+</ul>
+<h2 id="4-functional-requirements">4. Functional Requirements</h2>
+<table>
+<thead>
+<tr>
+<th>FR ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+<th>Stories</th>
+<th>Screens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FR-01</code></td>
+<td>Chọn vị trí pallet áp dụng</td>
+<td>Must</td>
+<td><code>US-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>FR-02</code></td>
+<td>Nạp kích thước pallet và giới hạn chiều cao theo vị trí</td>
+<td>Must</td>
+<td><code>US-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>FR-03</code></td>
+<td>Cung cấp catalog box chuẩn theo <code>Carton Code</code></td>
+<td>Must</td>
+<td><code>US-02</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>FR-04</code></td>
+<td>Chọn nhiều loại box trong cùng request</td>
+<td>Must</td>
+<td><code>US-02</code>, <code>US-03</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>FR-05</code></td>
+<td>Nhập số lượng theo từng loại box</td>
+<td>Must</td>
+<td><code>US-03</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>FR-06</code></td>
+<td>Tự nạp kích thước box từ catalog</td>
+<td>Must</td>
+<td><code>US-02</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>FR-07</code></td>
+<td>Validate request trước khi chạy auto-pack</td>
+<td>Must</td>
+<td><code>US-04</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>FR-08</code></td>
+<td>Sinh layout auto-packing khả thi</td>
+<td>Must</td>
+<td><code>US-05</code></td>
+<td><code>SCR-01</code>, <code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>FR-09</code></td>
+<td>Ưu tiên utilization cho baseline layout</td>
+<td>Must</td>
+<td><code>US-05</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>FR-10</code></td>
+<td>Hiển thị layout dạng 3D</td>
+<td>Must</td>
+<td><code>US-07</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>FR-11</code></td>
+<td>Hỗ trợ zoom và rotate trong workspace</td>
+<td>Must</td>
+<td><code>US-07</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>FR-12</code></td>
+<td>Hỗ trợ chọn box trong workspace</td>
+<td>Must</td>
+<td><code>US-08</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>FR-13</code></td>
+<td>Hỗ trợ drag/drop box</td>
+<td>Should</td>
+<td><code>US-09</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>FR-14</code></td>
+<td>Hỗ trợ rotate box</td>
+<td>Should</td>
+<td><code>US-10</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>FR-15</code></td>
+<td>Cập nhật metric và trạng thái sau manual change</td>
+<td>Should</td>
+<td><code>US-09</code>, <code>US-10</code>, <code>US-11</code></td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>FR-16</code></td>
+<td>Hiển thị <code>space utilization</code> và <code>layer count</code></td>
+<td>Must</td>
+<td><code>US-06</code>, <code>US-11</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>FR-17</code></td>
+<td>Reset về baseline auto-pack</td>
+<td>Could</td>
+<td><code>US-12</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-use-case-specifications">5. Use Case Specifications</h2>
+<h3 id="uc-01-configure-packing-request">UC-01 Configure Packing Request</h3>
+<ul>
+<li>Actor: Nhân viên kho</li>
+<li>Linked stories: <code>US-01</code> đến <code>US-04</code></li>
+<li>Linked screens: <code>SCR-01</code></li>
+<li>Precondition: app mở thành công, master data sẵn sàng</li>
+<li>Postcondition: request hợp lệ sẵn sàng gửi sang auto-packing</li>
+</ul>
+<p>Main flow:</p>
+<ol>
+<li>Người dùng chọn pallet position.</li>
+<li>Hệ thống nạp pallet constraints.</li>
+<li>Người dùng tìm và chọn các <code>Carton Code</code>.</li>
+<li>Hệ thống thêm selected box items với kích thước chuẩn.</li>
+<li>Người dùng nhập quantity theo từng loại box.</li>
+<li>Người dùng bấm <code>Run Auto-packing</code>.</li>
+<li>Hệ thống validate toàn bộ request trước khi chuyển sang <code>UC-02</code>.</li>
+</ol>
+<p>Alternate flows:</p>
+<ul>
+<li>Thiếu pallet position: chặn submit.</li>
+<li>Quantity không hợp lệ: hiển thị line-level error.</li>
+<li>Không có box item hợp lệ: hiển thị banner lỗi tổng hợp.</li>
+</ul>
+<h3 id="uc-02-generate-auto-packing-plan">UC-02 Generate Auto-packing Plan</h3>
+<ul>
+<li>Actor: Nhân viên kho</li>
+<li>Supporting system: Auto-packing service</li>
+<li>Linked stories: <code>US-05</code>, <code>US-06</code></li>
+<li>Linked screens: <code>SCR-01</code>, <code>SCR-02</code>, <code>SCR-03</code></li>
+</ul>
+<p>Main flow:</p>
+<ol>
+<li>Hệ thống nhận packing request hợp lệ.</li>
+<li>Auto-packing service tính baseline layout.</li>
+<li>Hệ thống nhận <code>boxes</code>, <code>utilization_percent</code>, <code>layer_count</code>, <code>validation_state</code>.</li>
+<li>Hệ thống hiển thị workspace tại <code>SCR-02</code>.</li>
+<li>Hệ thống hiển thị metric và trạng thái tại <code>SCR-03</code>.</li>
+</ol>
+<p>Alternate flows:</p>
+<ul>
+<li>Không tạo được layout khả thi: hiển thị failed state.</li>
+<li>Timeout hoặc lỗi kỹ thuật: hiển thị trạng thái thử lại.</li>
+</ul>
+<h3 id="uc-03-review-3d-layout">UC-03 Review 3D Layout</h3>
+<ul>
+<li>Actor: Nhân viên kho</li>
+<li>Linked stories: <code>US-07</code>, <code>US-08</code></li>
+<li>Linked screens: <code>SCR-02</code></li>
+</ul>
+<p>Main flow:</p>
+<ol>
+<li>Người dùng mở workspace 3D.</li>
+<li>Người dùng zoom hoặc rotate camera.</li>
+<li>Người dùng chọn một box.</li>
+<li>Hệ thống highlight box và hiển thị detail panel.</li>
+</ol>
+<h3 id="uc-04-adjust-layout-manually">UC-04 Adjust Layout Manually</h3>
+<ul>
+<li>Actor: Nhân viên kho</li>
+<li>Linked stories: <code>US-09</code>, <code>US-10</code>, <code>US-11</code></li>
+<li>Linked screens: <code>SCR-02</code>, <code>SCR-03</code></li>
+</ul>
+<p>Main flow:</p>
+<ol>
+<li>Người dùng chọn box trong workspace.</li>
+<li>Người dùng kéo hoặc xoay box.</li>
+<li>Hệ thống cập nhật layout hiện hành.</li>
+<li>Validation engine revalidate layout.</li>
+<li>Hệ thống cập nhật workspace và result summary.</li>
+</ol>
+<p>Alternate flows:</p>
+<ul>
+<li>Layout vượt biên hoặc overlap: trạng thái <code>invalid</code> hoặc <code>warning</code>.</li>
+<li>Validation engine lỗi: không xác nhận <code>valid</code>.</li>
+</ul>
+<h3 id="uc-05-reset-to-auto-pack-baseline">UC-05 Reset To Auto-pack Baseline</h3>
+<ul>
+<li>Actor: Nhân viên kho</li>
+<li>Linked story: <code>US-12</code></li>
+<li>Linked screens: <code>SCR-03</code>, <code>SCR-02</code></li>
+</ul>
+<p>Main flow:</p>
+<ol>
+<li>Người dùng chọn <code>Reset to Auto-pack</code>.</li>
+<li>Hệ thống nạp lại baseline layout.</li>
+<li>Workspace và result summary quay về dữ liệu baseline.</li>
+</ol>
+<h2 id="6-screen-contract-lite">6. Screen Contract Lite</h2>
+<table>
+<thead>
+<tr>
+<th>Screen ID</th>
+<th>Key actions</th>
+<th>Required states</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SCR-01</code></td>
+<td>chọn pallet, chọn <code>Carton Code</code>, nhập quantity, chạy auto-pack</td>
+<td><code>default-empty</code>, <code>editing-valid</code>, <code>validation-error</code>, <code>loading-pack</code></td>
+</tr>
+<tr>
+<td><code>SCR-02</code></td>
+<td>zoom, rotate, select, drag, rotate box</td>
+<td><code>workspace-ready</code>, <code>box-selected</code>, <code>manual-dragging</code>, <code>invalid-layout-warning</code>, <code>renderer-error</code></td>
+</tr>
+<tr>
+<td><code>SCR-03</code></td>
+<td>xem metric, xem validation, reset baseline, mở workspace</td>
+<td><code>auto-pack-success</code>, <code>warning-state</code>, <code>invalid-after-manual</code>, <code>empty-or-failed</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-screen-inventory">7. Screen Inventory</h2>
+<table>
+<thead>
+<tr>
+<th>Screen ID</th>
+<th>Name</th>
+<th>Type</th>
+<th>UC</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SCR-01</code></td>
+<td>Input cấu hình pallet và box</td>
+<td>Primary</td>
+<td><code>UC-01</code>, <code>UC-02</code></td>
+<td>Chuẩn bị request hợp lệ</td>
+</tr>
+<tr>
+<td><code>SCR-02</code></td>
+<td>3D packing workspace</td>
+<td>Primary</td>
+<td><code>UC-02</code>, <code>UC-03</code>, <code>UC-04</code></td>
+<td>Review và chỉnh layout</td>
+</tr>
+<tr>
+<td><code>SCR-03</code></td>
+<td>Kết quả và validation</td>
+<td>Primary</td>
+<td><code>UC-02</code>, <code>UC-04</code>, <code>UC-05</code></td>
+<td>Đánh giá metric và recovery</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-technical-slice">8. Technical Slice</h2>
+<h3 id="81-non-functional-requirements">8.1 Non-functional Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>NFR ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NFR-01</code></td>
+<td>UI đơn giản, training tối thiểu</td>
+</tr>
+<tr>
+<td><code>NFR-02</code></td>
+<td>3D workspace đủ mượt trên desktop browser hiện đại</td>
+</tr>
+<tr>
+<td><code>NFR-03</code></td>
+<td>Validation chặn input sai định dạng hoặc ngoài phạm vi</td>
+</tr>
+<tr>
+<td><code>NFR-04</code></td>
+<td>Auto-packing trả kết quả trong thời gian hợp lý cho dataset POC</td>
+</tr>
+<tr>
+<td><code>NFR-05</code></td>
+<td>Box catalog mapping nhất quán theo <code>Carton Code</code></td>
+</tr>
+<tr>
+<td><code>NFR-06</code></td>
+<td>Labels và units nhất quán giữa các màn hình</td>
+</tr>
+<tr>
+<td><code>NFR-07</code></td>
+<td>Packing engine đủ tách biệt để thay heuristic sau POC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-data-flow">8.2 Data Flow</h3>
+<div class="mermaid">
+flowchart LR
+    A[Pallet Position Master] --> B[SCR-01 Input State]
+    C[Box Catalog Master] --> B
+    B --> D[Validation Layer]
+    D --> E[Auto-packing Service]
+    E --> F[Layout State Store]
+    F --> G[SCR-02 Workspace]
+    F --> H[SCR-03 Result Summary]
+    G --> I[Manual Adjustment]
+    I --> J[Validation Engine]
+    J --> F
+</div>
+<h3 id="83-conceptual-erd">8.3 Conceptual ERD</h3>
+<div class="mermaid">
+erDiagram
+    PALLET_POSITION ||--o{ PACKING_PLAN : applies_to
+    BOX_CATALOG ||--o{ PACKING_PLAN_ITEM : selected_as
+    PACKING_PLAN ||--|{ PACKING_PLAN_ITEM : contains
+    PACKING_PLAN ||--|{ LAYOUT_BOX : materializes
+</div>
+<h3 id="84-api-surface">8.4 API Surface</h3>
+<ul>
+<li><code>GET /api/pallet-positions</code></li>
+<li><code>GET /api/box-catalog</code></li>
+<li><code>POST /api/packing-plans</code></li>
+<li><code>POST /api/packing-plans/{layout_id}/revalidate</code></li>
+<li><code>POST /api/packing-plans/{layout_id}/reset</code></li>
+</ul>
+<h2 id="9-final-screen-descriptions">9. Final Screen Descriptions</h2>
+<h3 id="scr-01-input-cau-hinh-pallet-va-box">SCR-01 Input cấu hình pallet và box</h3>
+<p>Wireframe refs:</p>
+<ul>
+<li>Artifact: <code>designs/timex/core-flow.pen#SCR-01-input-config</code></li>
+<li>Export: <code>../../designs/timex/exports/core-flow/SCR-01-input-config.png</code></li>
+</ul>
+<p><img alt="SCR-01 Input cấu hình pallet và box" src="../../designs/timex/exports/core-flow/SCR-01-input-config.png" /></p>
+<p>Key layout regions:</p>
+<ul>
+<li>Header</li>
+<li>Pallet context panel</li>
+<li>Selected box items panel</li>
+<li>Catalog master panel</li>
+<li>Validation banner</li>
+<li>Primary CTA</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Field Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pallet Position</td>
+<td>Select</td>
+<td>Display: danh sách vị trí pallet. / Behaviour: nạp constraints khi chọn. / Validation: bắt buộc.</td>
+</tr>
+<tr>
+<td>Pallet Length</td>
+<td>Read-only card</td>
+<td>Display: chiều dài pallet theo <code>cm</code>. / Behaviour: lấy từ master data.</td>
+</tr>
+<tr>
+<td>Pallet Width</td>
+<td>Read-only card</td>
+<td>Display: chiều rộng pallet theo <code>cm</code>. / Behaviour: lấy từ master data.</td>
+</tr>
+<tr>
+<td>Max Height</td>
+<td>Read-only card</td>
+<td>Display: chiều cao tối đa theo deck. / Behaviour: làm ràng buộc auto-pack và validation.</td>
+</tr>
+<tr>
+<td>Catalog Search</td>
+<td>Search input</td>
+<td>Display: text search cho catalog. / Behaviour: filter danh sách row.</td>
+</tr>
+<tr>
+<td>Catalog Result Row</td>
+<td>Selectable row</td>
+<td>Display: code, dimension, volume weight, annual volume. / Behaviour: <code>Add</code> vào selected items.</td>
+</tr>
+<tr>
+<td>Selected Box Item Row</td>
+<td>Composite row</td>
+<td>Display: code, size, quantity, remove action. / Behaviour: sửa quantity tại chỗ. / Validation: quantity là số nguyên dương.</td>
+</tr>
+<tr>
+<td>Validation Banner</td>
+<td>Inline alert</td>
+<td>Display: lỗi tổng hợp. / Behaviour: xuất hiện khi request chưa hợp lệ.</td>
+</tr>
+<tr>
+<td>Run Auto-packing</td>
+<td>Primary button</td>
+<td>Display: enabled khi request valid. / Behaviour: kích hoạt <code>UC-02</code>. / Validation: disabled khi request invalid.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scr-02-3d-packing-workspace">SCR-02 3D packing workspace</h3>
+<p>Wireframe refs:</p>
+<ul>
+<li>Artifact: <code>designs/timex/core-flow.pen#SCR-02-3d-workspace</code></li>
+<li>Export: <code>../../designs/timex/exports/core-flow/SCR-02-3d-workspace.png</code></li>
+</ul>
+<p><img alt="SCR-02 3D packing workspace" src="../../designs/timex/exports/core-flow/SCR-02-3d-workspace.png" /></p>
+<p>Key layout regions:</p>
+<ul>
+<li>Workspace header with camera controls</li>
+<li>3D canvas</li>
+<li>Selected box detail panel</li>
+<li>Manual action controls</li>
+<li>Warning card</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Field Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3D Layout Canvas</td>
+<td>Interactive viewport</td>
+<td>Display: pallet base và box placements. / Behaviour: zoom, rotate, select. / Validation: empty state nếu không có layout.</td>
+</tr>
+<tr>
+<td>Camera Controls</td>
+<td>Toolbar buttons/chips</td>
+<td>Display: thao tác camera. / Behaviour: đổi góc nhìn nhưng không đổi layout data.</td>
+</tr>
+<tr>
+<td>Selected Box Detail</td>
+<td>Detail card</td>
+<td>Display: layout box id, carton code, layer, orientation, position. / Behaviour: thay đổi theo selection hiện hành.</td>
+</tr>
+<tr>
+<td>Drag Selected Box</td>
+<td>Manual action</td>
+<td>Display: chỉ meaningful khi có selection. / Behaviour: reposition box. / Validation: revalidate sau khi drop.</td>
+</tr>
+<tr>
+<td>Rotate Selected Box</td>
+<td>Manual action</td>
+<td>Display: đổi orientation box đã chọn. / Behaviour: cập nhật layout hiện hành. / Validation: revalidate sau khi rotate.</td>
+</tr>
+<tr>
+<td>Invalid Layout Warning</td>
+<td>Warning card</td>
+<td>Display: overlap/out-of-bound/height overflow warning. / Behaviour: đồng bộ kết quả warning sang <code>SCR-03</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scr-03-ket-qua-va-validation">SCR-03 Kết quả và validation</h3>
+<p>Wireframe refs:</p>
+<ul>
+<li>Artifact: <code>designs/timex/core-flow.pen#SCR-03-results-validation</code></li>
+<li>Export: <code>../../designs/timex/exports/core-flow/SCR-03-results-validation.png</code></li>
+</ul>
+<p><img alt="SCR-03 Kết quả và validation" src="../../designs/timex/exports/core-flow/SCR-03-results-validation.png" /></p>
+<p>Key layout regions:</p>
+<ul>
+<li>Header with state badge</li>
+<li>Summary cards</li>
+<li>Result interpretation panel</li>
+<li>Issue list</li>
+<li>Actions panel</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Field Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Space Utilization</td>
+<td>Metric card</td>
+<td>Display: phần trăm sử dụng thể tích. / Behaviour: cập nhật sau auto-pack hoặc revalidation.</td>
+</tr>
+<tr>
+<td>Layer Count</td>
+<td>Metric card</td>
+<td>Display: số layer hiện hành. / Behaviour: cập nhật từ layout state hiện hành.</td>
+</tr>
+<tr>
+<td>Validation State</td>
+<td>Status card</td>
+<td>Display: <code>Valid</code>, <code>Warning</code>, hoặc <code>Invalid</code>. / Behaviour: đồng bộ với validation engine.</td>
+</tr>
+<tr>
+<td>Result Interpretation</td>
+<td>Rich text panel</td>
+<td>Display: mô tả kết quả chính và note chất lượng layout. / Behaviour: thay đổi theo state.</td>
+</tr>
+<tr>
+<td>Issue List</td>
+<td>List panel</td>
+<td>Display: liệt kê lỗi hoặc warning chi tiết. / Behaviour: rỗng khi layout hợp lệ hoàn toàn.</td>
+</tr>
+<tr>
+<td>Open 3D Workspace</td>
+<td>Secondary action</td>
+<td>Display: luôn hiện khi có layout. / Behaviour: quay lại <code>SCR-02</code>.</td>
+</tr>
+<tr>
+<td>Reset to Auto-pack</td>
+<td>Primary action</td>
+<td>Display: enabled khi đã có manual change. / Behaviour: kích hoạt <code>UC-05</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-test-cases">10. Test Cases</h2>
+<table>
+<thead>
+<tr>
+<th>TC ID</th>
+<th>Objective</th>
+<th>Story</th>
+<th>UC</th>
+<th>Screen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TC-01</code></td>
+<td>Chọn pallet và nạp config đúng</td>
+<td><code>US-01</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>TC-02</code></td>
+<td>Chọn <code>Carton Code</code> và tự nạp kích thước</td>
+<td><code>US-02</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>TC-03</code></td>
+<td>Nhập quantity theo từng loại box</td>
+<td><code>US-03</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>TC-04</code></td>
+<td>Chặn submit khi request invalid</td>
+<td><code>US-04</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>TC-05</code></td>
+<td>Tạo baseline layout khả thi</td>
+<td><code>US-05</code></td>
+<td><code>UC-02</code></td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>TC-06</code></td>
+<td>Hiển thị metric kết quả</td>
+<td><code>US-06</code></td>
+<td><code>UC-02</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>TC-07</code></td>
+<td>Zoom/rotate workspace</td>
+<td><code>US-07</code></td>
+<td><code>UC-03</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>TC-08</code></td>
+<td>Chọn box và xem detail</td>
+<td><code>US-08</code></td>
+<td><code>UC-03</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>TC-09</code></td>
+<td>Drag box và revalidate</td>
+<td><code>US-09</code></td>
+<td><code>UC-04</code></td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>TC-10</code></td>
+<td>Rotate box và hiển thị warning</td>
+<td><code>US-10</code></td>
+<td><code>UC-04</code></td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>TC-11</code></td>
+<td>Hiển thị invalid state sau manual change</td>
+<td><code>US-11</code></td>
+<td><code>UC-04</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>TC-12</code></td>
+<td>Reset về baseline auto-pack</td>
+<td><code>US-12</code></td>
+<td><code>UC-05</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-glossary">11. Glossary</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Pallet Position</code></td>
+<td>Vị trí pallet áp dụng trong kho</td>
+</tr>
+<tr>
+<td><code>Carton Code</code></td>
+<td>Mã box chuẩn trong catalog</td>
+</tr>
+<tr>
+<td><code>Packing Request</code></td>
+<td>Payload gửi sang auto-packing</td>
+</tr>
+<tr>
+<td><code>Layout Baseline</code></td>
+<td>Layout auto-pack đầu tiên của phiên</td>
+</tr>
+<tr>
+<td><code>Manual Change</code></td>
+<td>Thao tác drag/drop hoặc rotate box</td>
+</tr>
+<tr>
+<td><code>Validation State</code></td>
+<td>Trạng thái hợp lệ hiện hành của layout</td>
+</tr>
+<tr>
+<td><code>Utilization</code></td>
+<td>Tỷ lệ sử dụng thể tích pallet</td>
+</tr>
+<tr>
+<td><code>Layer Count</code></td>
+<td>Số lớp box trong layout</td>
+</tr>
+</tbody>
+</table>
+<h2 id="12-traceability">12. Traceability</h2>
+<table>
+<thead>
+<tr>
+<th>Story</th>
+<th>FR</th>
+<th>UC</th>
+<th>SCR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>US-01</code></td>
+<td><code>FR-01</code>, <code>FR-02</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>US-02</code></td>
+<td><code>FR-03</code>, <code>FR-04</code>, <code>FR-06</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>US-03</code></td>
+<td><code>FR-04</code>, <code>FR-05</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>US-04</code></td>
+<td><code>FR-07</code></td>
+<td><code>UC-01</code></td>
+<td><code>SCR-01</code></td>
+</tr>
+<tr>
+<td><code>US-05</code></td>
+<td><code>FR-08</code>, <code>FR-09</code></td>
+<td><code>UC-02</code></td>
+<td><code>SCR-01</code>, <code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>US-06</code></td>
+<td><code>FR-16</code></td>
+<td><code>UC-02</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>US-07</code></td>
+<td><code>FR-10</code>, <code>FR-11</code></td>
+<td><code>UC-03</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>US-08</code></td>
+<td><code>FR-12</code></td>
+<td><code>UC-03</code></td>
+<td><code>SCR-02</code></td>
+</tr>
+<tr>
+<td><code>US-09</code></td>
+<td><code>FR-13</code>, <code>FR-15</code></td>
+<td><code>UC-04</code></td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>US-10</code></td>
+<td><code>FR-14</code>, <code>FR-15</code></td>
+<td><code>UC-04</code></td>
+<td><code>SCR-02</code>, <code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>US-11</code></td>
+<td><code>FR-15</code>, <code>FR-16</code></td>
+<td><code>UC-04</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+<tr>
+<td><code>US-12</code></td>
+<td><code>FR-17</code></td>
+<td><code>UC-05</code></td>
+<td><code>SCR-03</code></td>
+</tr>
+</tbody>
+</table>
+  </main>
+</body>
+</html>

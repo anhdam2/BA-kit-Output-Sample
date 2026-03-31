@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>intake-timex-260331-1833</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #0f766e;
+      --code-bg: #f3f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 980px;
+      margin: 32px auto;
+      padding: 40px 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06);
+    }
+    header {
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    h1, h2, h3, h4 { line-height: 1.25; }
+    h1 { margin-top: 0; }
+    a { color: var(--accent); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f9fafb; }
+    code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    blockquote {
+      margin: 20px 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--accent);
+      background: #f0fdfa;
+    }
+    ul, ol { padding-left: 24px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>intake-timex-260331-1833</h1>
+      <p>Tài liệu BA xuất từ Markdown</p>
+    </header>
+    <h1 id="intake-form">Intake Form</h1>
+<h2 id="1-thong-tin-chung">1. Thông tin chung</h2>
+<ul>
+<li>Tên dự án: TimeX</li>
+<li>Slug: <code>timex</code></li>
+<li>Ngày intake: 2026-03-31 18:33 ICT</li>
+<li>Requester: Người dùng hiện tại</li>
+<li>Ngôn ngữ đầu ra mặc định: Tiếng Việt</li>
+<li>Engagement mode mặc định: <code>hybrid</code></li>
+<li>Giai đoạn: POC</li>
+<li>Kênh triển khai dự kiến: Web app đơn giản nhất có thể</li>
+</ul>
+<h2 id="2-boi-canh-nghiep-vu">2. Bối cảnh nghiệp vụ</h2>
+<p>TimeX là hệ thống đề xuất cách sắp xếp nhiều hộp sản phẩm vào trong pallet bằng hình ảnh trực quan 3D. Nhu cầu xuất phát từ bài toán thao tác xếp hàng thủ công của nhân viên kho, nơi việc ước lượng phương án xếp còn chậm, khó hình dung không gian, và dễ phát sinh sai sót vận hành.</p>
+<p>Hệ thống POC cần giúp nhân viên kho nhập dữ liệu hộp, xem trước cách sắp xếp trong không gian pallet, nhận đề xuất auto-packing nhằm tận dụng thể tích pallet tốt hơn, và có thể chỉnh tay lại kết quả trước khi áp dụng.</p>
+<p>Ngoài yêu cầu nhập liệu cơ bản, phạm vi intake được bổ sung thêm một danh mục box cố định theo carton code và kích thước chuẩn từ dữ liệu nghiệp vụ cung cấp qua ảnh. Điều này cho thấy ít nhất ở POC, bài toán không chỉ là nhập kích thước tự do mà còn cần hỗ trợ chọn box từ master data cố định.</p>
+<h2 id="3-muc-tieu-va-kpi-so-bo">3. Mục tiêu và KPI sơ bộ</h2>
+<h3 id="muc-tieu-nghiep-vu">Mục tiêu nghiệp vụ</h3>
+<ul>
+<li>Tăng tỷ lệ sử dụng thể tích pallet.</li>
+<li>Giảm thời gian lên phương án xếp hàng.</li>
+<li>Giảm lỗi vận hành khi xếp hàng thủ công.</li>
+</ul>
+<h3 id="kpi-so-bo-cho-poc">KPI sơ bộ cho POC</h3>
+<ul>
+<li>Hiển thị được ít nhất một phương án xếp hợp lệ từ dữ liệu đầu vào nhiều loại hộp.</li>
+<li>Cho phép người dùng đánh giá trực quan mức sử dụng pallet qua metric thể tích.</li>
+<li>Giảm thao tác thử-sai thủ công bằng cách sinh đề xuất ban đầu tự động.</li>
+</ul>
+<h3 id="kpi-con-thieu-can-xac-nhan-o-giai-oan-backbone">KPI còn thiếu cần xác nhận ở giai đoạn backbone</h3>
+<ul>
+<li>Mức tăng mục tiêu cụ thể cho <code>% utilization</code>.</li>
+<li>Thời gian mục tiêu để sinh hoặc chỉnh sửa một phương án xếp.</li>
+<li>Ngưỡng sai sót vận hành cần giảm theo tỷ lệ hoặc số trường hợp.</li>
+</ul>
+<h2 id="4-stakeholders">4. Stakeholders</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder</th>
+<th>Vai trò</th>
+<th>Mức ảnh hưởng</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nhân viên kho</td>
+<td>Người dùng chính</td>
+<td>Cao</td>
+<td>Nhập dữ liệu, xem 3D, chỉnh tay phương án</td>
+</tr>
+<tr>
+<td>Lead kho / vận hành</td>
+<td>Người phê duyệt nghiệp vụ</td>
+<td>Trung bình</td>
+<td>Chưa nêu rõ, cần xác nhận ở bước sau</td>
+</tr>
+<tr>
+<td>Nhóm phát triển POC</td>
+<td>Thực thi giải pháp</td>
+<td>Trung bình</td>
+<td>Xây web app và thuật toán POC</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-pham-vi-in-scope">5. Phạm vi in-scope</h2>
+<h3 id="51-user-input">5.1 User Input</h3>
+<ul>
+<li>Cho phép nhập thông tin hộp gồm:</li>
+<li>chiều dài</li>
+<li>chiều rộng</li>
+<li>chiều cao</li>
+<li>Hỗ trợ nhiều loại hộp trong cùng một lần tính toán.</li>
+<li>Có validate dữ liệu đầu vào để tránh sai sót nhập liệu.</li>
+<li>Dự kiến cần hỗ trợ số lượng theo từng loại hộp để phục vụ auto-packing.</li>
+<li>Cần hỗ trợ ít nhất một trong hai cơ chế input:</li>
+<li>nhập tay kích thước box</li>
+<li>chọn box từ danh mục kích cỡ cố định theo <code>Carton Code</code></li>
+<li>Với box lấy từ danh mục cố định, hệ thống nên tự nạp các thông số chuẩn và hạn chế sửa tay để tránh sai lệch dữ liệu nguồn.</li>
+</ul>
+<h3 id="511-danh-muc-box-co-inh-tu-du-lieu-nghiep-vu">5.1.1 Danh mục box cố định từ dữ liệu nghiệp vụ</h3>
+<p>Nguồn bổ sung từ ảnh cho thấy có tập box chuẩn với kích thước cố định, volume weight, annual volume và freight cost. Đây là dữ liệu tham chiếu quan trọng cho POC và cần được mô hình hóa như master data box.</p>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Carton Code</th>
+<th style="text-align: right;">Length (cm)</th>
+<th style="text-align: right;">Width (cm)</th>
+<th style="text-align: right;">Height (cm)</th>
+<th style="text-align: right;">Volume Weight (kg)</th>
+<th style="text-align: right;">Annual Volume</th>
+<th style="text-align: right;">Annual Volume Weight (kg)</th>
+<th style="text-align: right;">Freight Cost (USD)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 PACK POD SELF LOCKING</td>
+<td>C02P</td>
+<td style="text-align: right;">14.2</td>
+<td style="text-align: right;">8.9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">11,100.00</td>
+<td style="text-align: right;">3,086.1996</td>
+<td style="text-align: right;">24,689.60</td>
+</tr>
+<tr>
+<td>4 PACK POD SELF LOCKING</td>
+<td>C04P</td>
+<td style="text-align: right;">17.3</td>
+<td style="text-align: right;">14.2</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">2,950.00</td>
+<td style="text-align: right;">1,594.3334</td>
+<td style="text-align: right;">12,754.67</td>
+</tr>
+<tr>
+<td>6 PACK POD SELF LOCKING</td>
+<td>C06P</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">16.4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">5,110.00</td>
+<td style="text-align: right;">4,203.60864</td>
+<td style="text-align: right;">33,628.87</td>
+</tr>
+<tr>
+<td>10 PACK POD SELF LOCKING</td>
+<td>C10P</td>
+<td style="text-align: right;">34.5</td>
+<td style="text-align: right;">16.4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1.24</td>
+<td style="text-align: right;">20,225.00</td>
+<td style="text-align: right;">25,175.271</td>
+<td style="text-align: right;">201,402.17</td>
+</tr>
+<tr>
+<td>15 PACK POD SELF LOCKING</td>
+<td>C15P</td>
+<td style="text-align: right;">36.3</td>
+<td style="text-align: right;">23.9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1.91</td>
+<td style="text-align: right;">56,430.00</td>
+<td style="text-align: right;">107,705.345</td>
+<td style="text-align: right;">861,642.76</td>
+</tr>
+<tr>
+<td>25 PACK POD RSC</td>
+<td>C25R</td>
+<td style="text-align: right;">38.9</td>
+<td style="text-align: right;">33.4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2.86</td>
+<td style="text-align: right;">11,947.00</td>
+<td style="text-align: right;">34,148.9703</td>
+<td style="text-align: right;">273,191.76</td>
+</tr>
+<tr>
+<td>50 PACK POD RSC</td>
+<td>C50R</td>
+<td style="text-align: right;">38.9</td>
+<td style="text-align: right;">33.4</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">5.02</td>
+<td style="text-align: right;">44,955.00</td>
+<td style="text-align: right;">225,455.781</td>
+<td style="text-align: right;">1,803,646.24</td>
+</tr>
+<tr>
+<td>40 PACK POD RSC</td>
+<td>C40R</td>
+<td style="text-align: right;">38.9</td>
+<td style="text-align: right;">27.0</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">4.05</td>
+<td style="text-align: right;">7,905.00</td>
+<td style="text-align: right;">32,048.119</td>
+<td style="text-align: right;">256,384.95</td>
+</tr>
+</tbody>
+</table>
+<p>Tổng cộng trong ảnh:</p>
+<ul>
+<li>Annual Volume Weight: <code>433,417.63 kg</code></li>
+<li>Freight Cost: <code>3,467,341.02 USD</code></li>
+</ul>
+<h3 id="52-pallet-definition">5.2 Pallet Definition</h3>
+<ul>
+<li>Pallet nền cố định theo vị trí đặt pallet.</li>
+<li>Kích thước đáy pallet: <code>38.9 cm x 34 cm</code></li>
+<li>Kích thước cao cơ sở đã cung cấp: <code>19.3 cm</code></li>
+<li>Thể tích tham chiếu: <code>25.5 lít</code></li>
+<li>Trọng lượng tham chiếu: <code>1503.84 g</code></li>
+<li>Chiều cao tối đa theo vị trí trên máy bay:</li>
+<li>Lower Deck: <code>163 cm</code></li>
+<li>Main Deck: <code>244 cm</code></li>
+<li>Main Deck Freighter: <code>300 cm</code></li>
+<li>Hệ thống cần phản ánh giới hạn chiều cao theo vị trí pallet khi tính phương án xếp.</li>
+</ul>
+<h3 id="53-3d-visualization">5.3 3D Visualization</h3>
+<ul>
+<li>Hiển thị mô hình 3D trực quan các hộp bên trong pallet dựa trên input.</li>
+<li>Hỗ trợ:</li>
+<li>zoom</li>
+<li>rotate</li>
+<li>tương tác với box</li>
+<li>Mức tương tác tối thiểu cho POC:</li>
+<li>chọn box</li>
+<li>quan sát vị trí box</li>
+<li>chỉnh sửa thủ công bằng kéo thả</li>
+<li>xoay box</li>
+</ul>
+<h3 id="54-auto-packing-algorithm">5.4 Auto-packing Algorithm</h3>
+<ul>
+<li>Tự động tính toán và đề xuất cách sắp xếp hộp trong pallet.</li>
+<li>Ưu tiên tối đa khả năng sử dụng không gian pallet.</li>
+<li>Đầu ra cần đủ tốt để làm phương án khởi tạo cho thao tác chỉnh tay của người dùng.</li>
+<li>Cần hoạt động được với các box từ catalog cố định và các số đo chuẩn tương ứng.</li>
+</ul>
+<h3 id="55-arrangement-output-and-validation">5.5 Arrangement Output And Validation</h3>
+<ul>
+<li>Hiển thị kết quả 3D sau khi sắp xếp.</li>
+<li>Hiển thị các metric tối thiểu:</li>
+<li>tỷ lệ sử dụng không gian</li>
+<li>số layer</li>
+<li>Cho phép người dùng kiểm soát và chỉnh sửa lại phương án bằng tay.</li>
+</ul>
+<h2 id="6-pham-vi-out-of-scope-cho-poc">6. Phạm vi out-of-scope cho POC</h2>
+<ul>
+<li>Tích hợp WMS/ERP hoặc hệ thống kho hiện hữu.</li>
+<li>Tối ưu theo nhiều mục tiêu nâng cao như cân bằng tải, trọng tâm, hay ràng buộc vận chuyển đặc thù.</li>
+<li>Quản trị người dùng, phân quyền, audit log.</li>
+<li>Đồng bộ dữ liệu thời gian thực với thiết bị hiện trường.</li>
+<li>Các ràng buộc nghiệp vụ đặc biệt như hàng dễ vỡ, không được lật, ưu tiên xếp nặng ở dưới.</li>
+</ul>
+<h2 id="7-quy-trinh-nghiep-vu-du-kien">7. Quy trình nghiệp vụ dự kiến</h2>
+<ol>
+<li>Nhân viên kho chọn vị trí pallet áp dụng.</li>
+<li>Hệ thống nạp thông số pallet cố định tương ứng với vị trí đó.</li>
+<li>Nhân viên kho chọn loại hộp từ danh mục carton code cố định hoặc nhập tay box nếu phạm vi POC vẫn cho phép.</li>
+<li>Người dùng nhập số lượng theo từng loại hộp.</li>
+<li>Hệ thống validate dữ liệu đầu vào và nạp kích thước chuẩn tương ứng với carton code.</li>
+<li>Người dùng chạy auto-packing.</li>
+<li>Hệ thống sinh phương án xếp và hiển thị mô hình 3D.</li>
+<li>Người dùng kiểm tra metric, layer, và chỉnh sửa thủ công nếu cần.</li>
+<li>Hệ thống cập nhật lại trạng thái sắp xếp sau khi chỉnh tay.</li>
+</ol>
+<h2 id="8-man-hinh-hoac-ui-uoc-nhac-toi">8. Màn hình hoặc UI được nhắc tới</h2>
+<table>
+<thead>
+<tr>
+<th>Mã sơ bộ</th>
+<th>Màn hình</th>
+<th>Mục đích</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCR-01</td>
+<td>Input cấu hình pallet và box</td>
+<td>Chọn carton code, nhập số lượng, validate</td>
+</tr>
+<tr>
+<td>SCR-02</td>
+<td>3D packing workspace</td>
+<td>Xem mô hình 3D, rotate, zoom, chọn box</td>
+</tr>
+<tr>
+<td>SCR-03</td>
+<td>Kết quả và validation</td>
+<td>Xem utilization, layers, trạng thái đề xuất</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-yeu-cau-tho-uoc-trich-xuat">9. Yêu cầu thô được trích xuất</h2>
+<ul>
+<li>Hệ thống đề xuất bằng hình ảnh cách sắp xếp các hộp sản phẩm vào trong pallet.</li>
+<li>Có phần User Input cho phép nhập thông tin box gồm độ cao, độ dài, độ rộng.</li>
+<li>Hỗ trợ nhiều loại hộp.</li>
+<li>Có data validate để tránh sai sót.</li>
+<li>Có 3D Visualization hiển thị box trong pallet và cho phép zoom, xoay, tương tác.</li>
+<li>Có auto-packing algorithm để tự động đề xuất cách sắp xếp nhằm tối đa sử dụng không gian pallet.</li>
+<li>Có arrangement output và validation hiển thị kết quả 3D cùng các metric như utilization, layers.</li>
+<li>Cho phép người dùng kiểm soát và chỉnh sửa manual bằng kéo thả, xoay box.</li>
+<li>Có dữ liệu box chuẩn cố định theo <code>Carton Code</code> như ảnh tham chiếu, bao gồm kích thước và dữ liệu logistic liên quan.</li>
+</ul>
+<h2 id="10-rang-buoc-gia-inh-va-phu-thuoc">10. Ràng buộc, giả định và phụ thuộc</h2>
+<h3 id="rang-buoc-a-biet">Ràng buộc đã biết</h3>
+<ul>
+<li>Phạm vi POC ưu tiên web app đơn giản.</li>
+<li>Pallet không được người dùng định nghĩa tự do mà lấy theo vị trí đặt pallet.</li>
+<li>Có một danh mục box chuẩn với kích thước cố định; hệ thống không nên để sai lệch master data nếu chọn theo carton code.</li>
+</ul>
+<h3 id="gia-inh-lam-viec">Giả định làm việc</h3>
+<ul>
+<li>Người dùng sẽ chọn một vị trí pallet cụ thể để hệ thống áp đúng giới hạn chiều cao.</li>
+<li>Dữ liệu box chuẩn có thể được seed sẵn vào hệ thống từ danh mục carton code.</li>
+<li>Trọng lượng/volume weight hiện là dữ liệu tham chiếu; POC chưa bắt buộc tối ưu packing theo tải trọng.</li>
+<li>POC chấp nhận heuristic packing thay vì tối ưu tuyệt đối miễn đầu ra trực quan và dùng được.</li>
+</ul>
+<h3 id="phu-thuoc">Phụ thuộc</h3>
+<ul>
+<li>Cần thống nhất danh sách vị trí pallet hỗ trợ trong POC.</li>
+<li>Cần thống nhất cơ chế lưu và quản trị danh mục box chuẩn.</li>
+<li>Cần lựa chọn thư viện 3D phù hợp cho web app.</li>
+<li>Cần xác định cách biểu diễn và cập nhật layout sau thao tác kéo thả, xoay box.</li>
+</ul>
+<h2 id="11-gap-analysis">11. Gap analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Hạng mục</th>
+<th>Trạng thái</th>
+<th>Nhận xét</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stakeholders và decision maker</td>
+<td>Thiếu một phần</td>
+<td>Đã có người dùng chính, chưa xác nhận người duyệt nghiệp vụ</td>
+</tr>
+<tr>
+<td>Problem statement</td>
+<td>Đủ</td>
+<td>Đã rõ bài toán tối ưu xếp hộp và trực quan hóa</td>
+</tr>
+<tr>
+<td>Mục tiêu đo lường</td>
+<td>Thiếu một phần</td>
+<td>Có mục tiêu định tính, chưa có target số</td>
+</tr>
+<tr>
+<td>In-scope / out-of-scope</td>
+<td>Đủ ở mức POC</td>
+<td>Đã xác định POC đơn giản</td>
+</tr>
+<tr>
+<td>Compliance / regulatory</td>
+<td>Tạm đủ</td>
+<td>Chưa có yêu cầu tuân thủ cụ thể</td>
+</tr>
+<tr>
+<td>Mô tả UI để wireframe</td>
+<td>Đủ cho bước backbone</td>
+<td>Có 3 vùng chức năng chính</td>
+</tr>
+<tr>
+<td>Quy trình nghiệp vụ</td>
+<td>Đủ sơ bộ</td>
+<td>Cần chi tiết hơn ở bước stories/SRS</td>
+</tr>
+<tr>
+<td>Quy tắc nghiệp vụ</td>
+<td>Đủ hơn trước</td>
+<td>Đã có catalog box cố định, nhưng chưa rõ có cho nhập box ngoài catalog hay không</td>
+</tr>
+</tbody>
+</table>
+<h2 id="12-cau-hoi-lam-ro-a-khoa-scope">12. Câu hỏi làm rõ đã khóa scope</h2>
+<table>
+<thead>
+<tr>
+<th>Câu hỏi</th>
+<th>Trả lời</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tên dự án là gì?</td>
+<td>TimeX</td>
+</tr>
+<tr>
+<td>Người dùng chính là ai?</td>
+<td>Nhân viên kho</td>
+</tr>
+<tr>
+<td>Pallet có cố định hay nhập tay?</td>
+<td>Cố định theo vị trí đặt pallet</td>
+</tr>
+<tr>
+<td>Kích thước và giới hạn pallet là gì?</td>
+<td>Đã cung cấp base dimensions, thể tích, trọng lượng và chiều cao tối đa theo vị trí</td>
+</tr>
+<tr>
+<td>Box có kích thước tự do hay cố định?</td>
+<td>Có thêm danh mục box cố định theo carton code từ ảnh nghiệp vụ</td>
+</tr>
+<tr>
+<td>Mục tiêu chính là gì?</td>
+<td>Tăng utilization, giảm thời gian lên phương án, giảm lỗi vận hành</td>
+</tr>
+<tr>
+<td>Chỉnh sửa manual đến mức nào?</td>
+<td>Kéo thả và xoay box</td>
+</tr>
+<tr>
+<td>Có ràng buộc nghiệp vụ đặc thù không?</td>
+<td>Không có trong POC</td>
+</tr>
+<tr>
+<td>Nền tảng triển khai?</td>
+<td>Web app đơn giản</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-open-questions-con-lai-cho-downstream">13. Open questions còn lại cho downstream</h2>
+<ul>
+<li>POC có cho phép nhập box ngoài danh mục carton code cố định hay chỉ được chọn từ catalog chuẩn.</li>
+<li>POC có cần nhập số lượng theo từng loại hộp hay chỉ một instance mỗi loại.</li>
+<li>Người dùng chọn vị trí pallet bằng dropdown cố định hay hệ thống tự suy ra theo ngữ cảnh.</li>
+<li>Có cần lưu hoặc export phương án xếp sau khi chỉnh tay không.</li>
+<li>Có cần so sánh nhiều phương án packing hay chỉ hiển thị một phương án tốt nhất.</li>
+<li>Annual volume, volume weight và freight cost có chỉ là dữ liệu tham chiếu hay sẽ tham gia vào ưu tiên packing / báo cáo.</li>
+</ul>
+<h2 id="14-e-xuat-scope-lock">14. Đề xuất scope lock</h2>
+<p>Scope POC được khóa theo hướng:</p>
+<ul>
+<li>Một web app đơn giản cho nhân viên kho.</li>
+<li>Input nhiều loại hộp với validate, ưu tiên chọn từ catalog box cố định theo carton code.</li>
+<li>Pallet cấu hình sẵn theo vị trí với giới hạn chiều cao khác nhau.</li>
+<li>Sinh một phương án auto-packing ưu tiên utilization.</li>
+<li>Hiển thị mô hình 3D có zoom, rotate, chọn box.</li>
+<li>Cho phép chỉnh tay bằng kéo thả và xoay box.</li>
+<li>Hiển thị các metric lõi như utilization và layer count.</li>
+</ul>
+<p>Các nhu cầu tối ưu nâng cao, tích hợp hệ thống, và ràng buộc xếp hàng chuyên sâu được để ngoài phạm vi POC hiện tại.</p>
+  </main>
+</body>
+</html>
