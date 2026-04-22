@@ -5,7 +5,16 @@
   "members": {
     "anhdam2": "lead"
   },
-  "pendingInvites": [],
+  "pendingInvites": [
+    {
+      "githubLogin": "FrenchFries-696",
+      "role": "member",
+      "repoInvitationId": 315822884,
+      "status": "pending",
+      "invitedBy": "anhdam2",
+      "createdAt": "2026-04-22T09:58:14.519Z"
+    }
+  ],
   "createdAt": "2026-04-22T07:11:31.686Z",
-  "updatedAt": "2026-04-22T09:57:38.330Z"
+  "updatedAt": "2026-04-22T09:58:14.519Z"
 }
